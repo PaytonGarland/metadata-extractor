@@ -47,12 +47,38 @@ import java.util.Map;
 public class XmpDirectory extends Directory
 {
     public static final int TAG_XMP_VALUE_COUNT = 0xFFFF;
+    public static final int TAG_EXIF_FOCAL_LENGTH = "exif:FocalLength".hashCode();
+
+    public static final int TAG_TIFF_ARTIST = "tiff:Artist".hashCode();
+    public static final int TAG_TIFF_BITS_PER_SAMPLE = "tiff:BitsPerSample".hashCode();
+    public static final int TAG_TIFF_COMPRESSION = "tiff:Compression".hashCode();
+    public static final int TAG_TIFF_COPYRIGHT = "tiff:Copyright".hashCode();
+    public static final int TAG_TIFF_DATE_TIME = "tiff:DateTime".hashCode();
+    public static final int TAG_TIFF_IMAGE_DESCRIPTION = "tiff:ImageDescription".hashCode();
+    public static final int TAG_TIFF_IMAGE_LENGTH = "tiff:ImageLength".hashCode();
+    public static final int TAG_TIFF_IMAGE_HEIGHT = "tiff:ImageHeight".hashCode();
+    public static final int TAG_TIFF_MAKE = "tiff:Make".hashCode();
+    public static final int TAG_TIFF_MODEL = "tiff:Model".hashCode();
+    public static final int TAG_TIFF_ORIENTATION = "tiff:Orientation".hashCode();
 
     @NotNull
     protected static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
 
     static {
         _tagNameMap.put(TAG_XMP_VALUE_COUNT, "XMP Value Count");
+        _tagNameMap.put(TAG_EXIF_FOCAL_LENGTH, "Focal Length");
+
+        _tagNameMap.put(TAG_TIFF_ARTIST, "Artist");
+        _tagNameMap.put(TAG_TIFF_BITS_PER_SAMPLE, "Bits Per Sample");
+        _tagNameMap.put(TAG_TIFF_COMPRESSION, "Compression");
+        _tagNameMap.put(TAG_TIFF_COPYRIGHT, "Copyright");
+        _tagNameMap.put(TAG_TIFF_DATE_TIME, "Date/Time");
+        _tagNameMap.put(TAG_TIFF_IMAGE_DESCRIPTION, "Image Description");
+        _tagNameMap.put(TAG_TIFF_IMAGE_LENGTH, "Image Length");
+        _tagNameMap.put(TAG_TIFF_IMAGE_HEIGHT, "Image Height");
+        _tagNameMap.put(TAG_TIFF_MAKE, "Make");
+        _tagNameMap.put(TAG_TIFF_MODEL, "Model");
+        _tagNameMap.put(TAG_TIFF_ORIENTATION, "Orientation");
     }
 
     @Nullable
