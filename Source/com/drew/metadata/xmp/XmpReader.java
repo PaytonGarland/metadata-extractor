@@ -39,6 +39,7 @@ import com.drew.metadata.StringValue;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * Extracts XMP data from JPEG APP1 segments.
@@ -211,7 +212,13 @@ public class XmpReader implements JpegSegmentMetadataReader
 
         try {
             XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmpString);
-            directory.setXMPMeta(xmpMeta);
+            for (Iterator i = xmpMeta.iterator(); i.hasNext(); ) {
+                XMPPropertyInfo prop = (XMPPropertyInfo)i.next();
+                System.out.println(prop.getPath());
+                if (prop.getPath() != null && XmpDirectory._tagNameMap.containsKey(prop.getPath().hashCode())) {
+                    directory.setString(prop.getPath().hashCode(), prop.getValue());
+                }
+            }
         } catch (XMPException e) {
             directory.addError("Error processing XMP data: " + e.getMessage());
         }
