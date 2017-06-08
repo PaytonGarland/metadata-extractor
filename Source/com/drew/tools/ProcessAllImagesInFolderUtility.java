@@ -39,7 +39,7 @@ import com.drew.metadata.exif.ExifIFD0Directory;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.ExifThumbnailDirectory;
 import com.drew.metadata.file.FileMetadataDirectory;
-import com.drew.metadata.xmp.XmpDirectory;
+import com.drew.metadata.xmp.XmpDirectoryBase;
 
 import java.io.*;
 import java.util.*;
@@ -328,10 +328,10 @@ public class ProcessAllImagesInFolderUtility
                         if (directory.getTagCount() != 0)
                             writer.write(NEW_LINE);
                         // Special handling for XMP directory data
-                        if (directory instanceof XmpDirectory) {
+                        if (directory instanceof XmpDirectoryBase) {
                             boolean wrote = false;
-                            XmpDirectory xmpDirectory = (XmpDirectory)directory;
-                            XMPMeta xmpMeta = xmpDirectory.getXMPMeta();
+                            XmpDirectoryBase xmpDirectoryBase = (XmpDirectoryBase)directory;
+                            XMPMeta xmpMeta = xmpDirectoryBase.getXMPMeta();
                             try {
                                 XMPIterator iterator = xmpMeta.iterator();
                                 while (iterator.hasNext()) {

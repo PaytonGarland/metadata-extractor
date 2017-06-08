@@ -45,7 +45,7 @@ import java.util.Iterator;
  * Extracts XMP data from JPEG APP1 segments.
  * <p>
  * Note that XMP uses a namespace and path format for identifying values, which does not map to metadata-extractor's
- * integer based tag identifiers. Therefore, XMP data is extracted and exposed via {@link XmpDirectory#getXMPMeta()}
+ * integer based tag identifiers. Therefore, XMP data is extracted and exposed via {@link XmpDirectoryBase#getXMPMeta()}
  * which returns an instance of Adobe's {@link XMPMeta} which exposes the full XMP data set.
  * <p>
  * The extraction is done with Adobe's XmpCore-Library (XMP-Toolkit)
@@ -153,7 +153,7 @@ public class XmpReader implements JpegSegmentMetadataReader
      */
     public void extract(@NotNull final byte[] xmpBytes, int offset, int length, @NotNull Metadata metadata, @Nullable Directory parentDirectory)
     {
-        XmpDirectory directory = new XmpDirectory();
+        XmpDirectoryBase directory = new XmpDirectoryBase();
 
         if (parentDirectory != null)
             directory.setParent(parentDirectory);
@@ -205,7 +205,7 @@ public class XmpReader implements JpegSegmentMetadataReader
      */
     public void extract(@NotNull final String xmpString, @NotNull Metadata metadata, @Nullable Directory parentDirectory)
     {
-        XmpDirectory directory = new XmpDirectory();
+        XmpDirectoryBase directory = new XmpDirectoryBase();
 
         if (parentDirectory != null)
             directory.setParent(parentDirectory);
@@ -215,7 +215,7 @@ public class XmpReader implements JpegSegmentMetadataReader
             for (Iterator i = xmpMeta.iterator(); i.hasNext(); ) {
                 XMPPropertyInfo prop = (XMPPropertyInfo)i.next();
                 System.out.println(prop.getPath());
-                if (prop.getPath() != null && XmpDirectory._tagNameMap.containsKey(prop.getPath().hashCode())) {
+                if (prop.getPath() != null && XmpDirectoryBase._tagNameMap.containsKey(prop.getPath().hashCode())) {
                     directory.setString(prop.getPath().hashCode(), prop.getValue());
                 }
             }
@@ -234,9 +234,9 @@ public class XmpReader implements JpegSegmentMetadataReader
     @Nullable
     private static String getExtendedXMPGUID(@NotNull Metadata metadata)
     {
-        final Collection<XmpDirectory> xmpDirectories = metadata.getDirectoriesOfType(XmpDirectory.class);
+        final Collection<XmpDirectoryBase> xmpDirectories = metadata.getDirectoriesOfType(XmpDirectoryBase.class);
 
-        for (XmpDirectory directory : xmpDirectories) {
+        for (XmpDirectoryBase directory : xmpDirectories) {
             final XMPMeta xmpMeta = directory.getXMPMeta();
 
             try {
@@ -297,13 +297,13 @@ public class XmpReader implements JpegSegmentMetadataReader
                     if (extendedXMPBuffer.length == fullLength) {
                         System.arraycopy(segmentBytes, totalOffset, extendedXMPBuffer, chunkOffset, segmentLength - totalOffset);
                     } else {
-                        XmpDirectory directory = new XmpDirectory();
+                        XmpDirectoryBase directory = new XmpDirectoryBase();
                         directory.addError(String.format("Inconsistent length for the Extended XMP buffer: %d instead of %d", fullLength, extendedXMPBuffer.length));
                         metadata.addDirectory(directory);
                     }
                 }
             } catch (IOException ex) {
-                XmpDirectory directory = new XmpDirectory();
+                XmpDirectoryBase directory = new XmpDirectoryBase();
                 directory.addError(ex.getMessage());
                 metadata.addDirectory(directory);
             }
