@@ -767,6 +767,64 @@ public class XmpDirectory extends Directory
     // FPV
     public static final int TAG_XMP_FPV_RICHTEXTCOMMENT = "fpv:RichTextComment".hashCode();
 
+    // GAudio
+    public static final int TAG_XMP_GAUDIO_AUDIODATA = "GAudio:AudioData".hashCode();
+    public static final int TAG_XMP_GAUDIO_AUDIOMIMETYPE = "GAudio:AudioMimeType".hashCode();
+
+    // GettyImages
+    public static final int TAG_XMP_GETTYIMAGESGIFT_ASSETID = "GettyImagesGIFT:AssetID".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_CALLFORIMAGE = "GettyImagesGIFT:CallForImage".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_CAMERAFILENAME = "GettyImagesGIFT:CameraFilename".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_CAMERAMAKEMODEL = "GettyImagesGIFT:CameraMakeModel".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_CAMERASERIALNUMBER = "GettyImagesGIFT:CameraSerialNumber".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_COMPOSITION = "GettyImagesGIFT:Composition".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_EXCLUSIVECOVERAGE = "GettyImagesGIFT:ExclusiveCoverage".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_GIFTFTPPRIORITY = "GettyImagesGIFT:GIFTFtpPriority".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_IMAGERANK = "GettyImagesGIFT:ImageRank".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_MEDIAEVENTIDDATE = "GettyImagesGIFT:MediaEventIdDate".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_ORIGINALCREATEDATETIME = "GettyImagesGIFT:OriginalCreateDateTime".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_ORIGINALFILENAME = "GettyImagesGIFT:OriginalFileName".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_PARENTMEDIAEVENTID = "GettyImagesGIFT:ParentMediaEventID".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_PARENTMEID = "GettyImagesGIFT:ParentMEID".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_PERSONALITY = "GettyImagesGIFT:Personality".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_PRIMARYFTP = "GettyImagesGIFT:PrimaryFTP".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_ROUTINGDESTINATIONS = "GettyImagesGIFT:RoutingDestinations".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_ROUTINGEXCLUSIONS = "GettyImagesGIFT:RoutingExclusions".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_SECONDARYFTP = "GettyImagesGIFT:SecondaryFTP".hashCode();
+    public static final int TAG_XMP_GETTYIMAGESGIFT_TIMESHOT = "GettyImagesGIFT:TimeShot".hashCode();
+
+    // GImage
+    public static final int TAG_XMP_GIMAGE_IMAGEDATA = "GImage:ImageData".hashCode();
+    public static final int TAG_XMP_GIMAGE_IMAGEMIMETYPE = "GImage:ImageMimeType".hashCode();
+
+    // GPano
+    public static final int TAG_XMP_GPANO_CAPTURESOFTWARE = "GPano:CaptureSoftware".hashCode();
+    public static final int TAG_XMP_GPANO_CROPPEDAREAIMAGEHEIGHTPIXELS = "GPano:CroppedAreaImageHeightPixels".hashCode();
+    public static final int TAG_XMP_GPANO_CROPPEDAREAIMAGEWIDTHPIXELS = "GPano:CroppedAreaImageWidthPixels".hashCode();
+    public static final int TAG_XMP_GPANO_CROPPEDAREALEFTPIXELS = "GPano:CroppedAreaLeftPixels".hashCode();
+    public static final int TAG_XMP_GPANO_CROPPEDAREATOPPIXELS = "GPano:CroppedAreaTopPixels".hashCode();
+    public static final int TAG_XMP_GPANO_EXPOSURELOCKUSED = "GPano:ExposureLockUsed".hashCode();
+    public static final int TAG_XMP_GPANO_FIRSTPHOTODATE = "GPano:FirstPhotoDate".hashCode();
+    public static final int TAG_XMP_GPANO_FULLPANOHEIGHTPIXELS = "GPano:FullPanoHeightPixels".hashCode();
+    public static final int TAG_XMP_GPANO_FULLPANOWIDTHPIXELS = "GPano:FullPanoWidthPixels".hashCode();
+    public static final int TAG_XMP_GPANO_INITIALCAMERADOLLY = "GPano:InitialCameraDolly".hashCode();
+    public static final int TAG_XMP_GPANO_INITIALHORIZONTALFOVDEGREES = "GPano:InitialHorizontalFOVDegrees".hashCode();
+    public static final int TAG_XMP_GPANO_INITIALVIEWHEADINGDEGREES = "GPano:InitialViewHeadingDegrees".hashCode();
+    public static final int TAG_XMP_GPANO_INITIALVIEWPITCHDEGREES = "GPano:InitialViewPitchDegrees".hashCode();
+    public static final int TAG_XMP_GPANO_INITIALVIEWROLLDEGREES = "GPano:InitialViewRollDegrees".hashCode();
+    public static final int TAG_XMP_GPANO_LARGESTVALIDINTERIORRECTHEIGHT = "GPano:LargestValidInteriorRectHeight".hashCode();
+    public static final int TAG_XMP_GPANO_LARGESTVALIDINTERIORRECTLEFT = "GPano:LargestValidInteriorRectLeft".hashCode();
+    public static final int TAG_XMP_GPANO_LARGESTVALIDINTERIORRECTTOP = "GPano:LargestValidInteriorRectTop".hashCode();
+    public static final int TAG_XMP_GPANO_LARGESTVALIDINTERIORRECTWIDTH = "GPano:LargestValidInteriorRectWidth".hashCode();
+    public static final int TAG_XMP_GPANO_LASTPHOTODATE = "GPano:LastPhotoDate".hashCode();
+    public static final int TAG_XMP_GPANO_POSEHEADINGDEGREES = "GPano:PoseHeadingDegrees".hashCode();
+    public static final int TAG_XMP_GPANO_POSEPITCHDEGREES = "GPano:PosePitchDegrees".hashCode();
+    public static final int TAG_XMP_GPANO_POSEROLLDEGREES = "GPano:PoseRollDegrees".hashCode();
+    public static final int TAG_XMP_GPANO_PROJECTIONTYPE = "GPano:ProjectionType".hashCode();
+    public static final int TAG_XMP_GPANO_SOURCEPHOTOSCOUNT = "GPano:SourcePhotosCount".hashCode();
+    public static final int TAG_XMP_GPANO_STITCHINGSOFTWARE = "GPano:StitchingSoftware".hashCode();
+    public static final int TAG_XMP_GPANO_USEPANORAMAVIEWER = "GPano:UsePanoramaViewer".hashCode();
+
     @NotNull
     protected static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
 
@@ -1496,6 +1554,63 @@ public class XmpDirectory extends Directory
         // FPV
         _tagNameMap.put(TAG_XMP_FPV_RICHTEXTCOMMENT, "fpv:RichTextComment");
 
+        // GAudio
+        _tagNameMap.put(TAG_XMP_GAUDIO_AUDIODATA, "GAudio:AudioData");
+        _tagNameMap.put(TAG_XMP_GAUDIO_AUDIOMIMETYPE, "GAudio:AudioMimeType");
+
+        // GettyImages
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_ASSETID, "GettyImagesGIFT:AssetID");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_CALLFORIMAGE, "GettyImagesGIFT:CallForImage");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_CAMERAFILENAME, "GettyImagesGIFT:CameraFilename");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_CAMERAMAKEMODEL, "GettyImagesGIFT:CameraMakeModel");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_CAMERASERIALNUMBER, "GettyImagesGIFT:CameraSerialNumber");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_COMPOSITION, "GettyImagesGIFT:Composition");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_EXCLUSIVECOVERAGE, "GettyImagesGIFT:ExclusiveCoverage");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_GIFTFTPPRIORITY, "GettyImagesGIFT:GIFTFtpPriority");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_IMAGERANK, "GettyImagesGIFT:ImageRank");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_MEDIAEVENTIDDATE, "GettyImagesGIFT:MediaEventIdDate");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_ORIGINALCREATEDATETIME, "GettyImagesGIFT:OriginalCreateDateTime");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_ORIGINALFILENAME, "GettyImagesGIFT:OriginalFileName");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_PARENTMEDIAEVENTID, "GettyImagesGIFT:ParentMediaEventID");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_PARENTMEID, "GettyImagesGIFT:ParentMEID");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_PERSONALITY, "GettyImagesGIFT:Personality");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_PRIMARYFTP, "GettyImagesGIFT:PrimaryFTP");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_ROUTINGDESTINATIONS, "GettyImagesGIFT:RoutingDestinations");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_ROUTINGEXCLUSIONS, "GettyImagesGIFT:RoutingExclusions");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_SECONDARYFTP, "GettyImagesGIFT:SecondaryFTP");
+        _tagNameMap.put(TAG_XMP_GETTYIMAGESGIFT_TIMESHOT, "GettyImagesGIFT:TimeShot");
+
+        // GImage
+        _tagNameMap.put(TAG_XMP_GIMAGE_IMAGEDATA, "GImage:ImageData");
+        _tagNameMap.put(TAG_XMP_GIMAGE_IMAGEMIMETYPE, "GImage:ImageMimeType");
+
+        // GPano
+        _tagNameMap.put(TAG_XMP_GPANO_CAPTURESOFTWARE, "GPano:CaptureSoftware");
+        _tagNameMap.put(TAG_XMP_GPANO_CROPPEDAREAIMAGEHEIGHTPIXELS, "GPano:CroppedAreaImageHeightPixels");
+        _tagNameMap.put(TAG_XMP_GPANO_CROPPEDAREAIMAGEWIDTHPIXELS, "GPano:CroppedAreaImageWidthPixels");
+        _tagNameMap.put(TAG_XMP_GPANO_CROPPEDAREALEFTPIXELS, "GPano:CroppedAreaLeftPixels");
+        _tagNameMap.put(TAG_XMP_GPANO_CROPPEDAREATOPPIXELS, "GPano:CroppedAreaTopPixels");
+        _tagNameMap.put(TAG_XMP_GPANO_EXPOSURELOCKUSED, "GPano:ExposureLockUsed");
+        _tagNameMap.put(TAG_XMP_GPANO_FIRSTPHOTODATE, "GPano:FirstPhotoDate");
+        _tagNameMap.put(TAG_XMP_GPANO_FULLPANOHEIGHTPIXELS, "GPano:FullPanoHeightPixels");
+        _tagNameMap.put(TAG_XMP_GPANO_FULLPANOWIDTHPIXELS, "GPano:FullPanoWidthPixels");
+        _tagNameMap.put(TAG_XMP_GPANO_INITIALCAMERADOLLY, "GPano:InitialCameraDolly");
+        _tagNameMap.put(TAG_XMP_GPANO_INITIALHORIZONTALFOVDEGREES, "GPano:InitialHorizontalFOVDegrees");
+        _tagNameMap.put(TAG_XMP_GPANO_INITIALVIEWHEADINGDEGREES, "GPano:InitialViewHeadingDegrees");
+        _tagNameMap.put(TAG_XMP_GPANO_INITIALVIEWPITCHDEGREES, "GPano:InitialViewPitchDegrees");
+        _tagNameMap.put(TAG_XMP_GPANO_INITIALVIEWROLLDEGREES, "GPano:InitialViewRollDegrees");
+        _tagNameMap.put(TAG_XMP_GPANO_LARGESTVALIDINTERIORRECTHEIGHT, "GPano:LargestValidInteriorRectHeight");
+        _tagNameMap.put(TAG_XMP_GPANO_LARGESTVALIDINTERIORRECTLEFT, "GPano:LargestValidInteriorRectLeft");
+        _tagNameMap.put(TAG_XMP_GPANO_LARGESTVALIDINTERIORRECTTOP, "GPano:LargestValidInteriorRectTop");
+        _tagNameMap.put(TAG_XMP_GPANO_LARGESTVALIDINTERIORRECTWIDTH, "GPano:LargestValidInteriorRectWidth");
+        _tagNameMap.put(TAG_XMP_GPANO_LASTPHOTODATE, "GPano:LastPhotoDate");
+        _tagNameMap.put(TAG_XMP_GPANO_POSEHEADINGDEGREES, "GPano:PoseHeadingDegrees");
+        _tagNameMap.put(TAG_XMP_GPANO_POSEPITCHDEGREES, "GPano:PosePitchDegrees");
+        _tagNameMap.put(TAG_XMP_GPANO_POSEROLLDEGREES, "GPano:PoseRollDegrees");
+        _tagNameMap.put(TAG_XMP_GPANO_PROJECTIONTYPE, "GPano:ProjectionType");
+        _tagNameMap.put(TAG_XMP_GPANO_SOURCEPHOTOSCOUNT, "GPano:SourcePhotosCount");
+        _tagNameMap.put(TAG_XMP_GPANO_STITCHINGSOFTWARE, "GPano:StitchingSoftware");
+        _tagNameMap.put(TAG_XMP_GPANO_USEPANORAMAVIEWER, "GPano:UsePanoramaViewer");
     }
 
     @Nullable
