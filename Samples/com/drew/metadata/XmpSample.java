@@ -26,7 +26,7 @@ import com.adobe.xmp.XMPMeta;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.xmp.XmpDirectoryBase;
+import com.drew.metadata.xmp.XmpDirectory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,14 +46,14 @@ public class XmpSample
         Metadata metadata = ImageMetadataReader.readMetadata(imageStream);
 
         // Iterate through any XMP directories we may have received
-        for (XmpDirectoryBase xmpDirectoryBase : metadata.getDirectoriesOfType(XmpDirectoryBase.class)) {
+        for (XmpDirectory xmpDirectory : metadata.getDirectoriesOfType(XmpDirectory.class)) {
 
             // Usually with metadata-extractor, you iterate a directory's tags. However XMP has
             // a complex structure with many potentially unknown properties. This doesn't map
             // well to metadata-extractor's directory-and-tag model.
             //
             // If you need to use XMP data, access the XMPMeta object directly.
-            XMPMeta xmpMeta = xmpDirectoryBase.getXMPMeta();
+            XMPMeta xmpMeta = xmpDirectory.getXMPMeta();
 
             XMPIterator itr = xmpMeta.iterator();
 

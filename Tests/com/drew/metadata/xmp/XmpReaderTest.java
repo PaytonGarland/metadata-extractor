@@ -35,7 +35,7 @@ import static org.junit.Assert.*;
  */
 public class XmpReaderTest
 {
-    private XmpDirectoryBase _directory;
+    private XmpDirectory _directory;
 
     @Before
     public void setUp() throws Exception
@@ -45,7 +45,7 @@ public class XmpReaderTest
         jpegSegments.add(FileUtil.readBytes("Tests/Data/withXmpAndIptc.jpg.app1.1"));
         new XmpReader().readJpegSegments(jpegSegments, metadata, JpegSegmentType.APP1);
 
-        Collection<XmpDirectoryBase> xmpDirectories = metadata.getDirectoriesOfType(XmpDirectoryBase.class);
+        Collection<XmpDirectory> xmpDirectories = metadata.getDirectoriesOfType(XmpDirectory.class);
 
         assertNotNull(xmpDirectories);
         assertEquals(1, xmpDirectories.size());
@@ -64,7 +64,7 @@ public class XmpReaderTest
     @Test
     public void testExtract_PropertyCount() throws Exception
     {
-        assertEquals(179, _directory.getInt(XmpDirectoryBase.TAG_XMP_VALUE_COUNT));
+        assertEquals(179, _directory.getInt(XmpDirectory.TAG_XMP_VALUE_COUNT));
     }
 
     @Test

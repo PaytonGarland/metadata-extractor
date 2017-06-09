@@ -25,7 +25,7 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.jpeg.HuffmanTablesDirectory;
 import com.drew.metadata.jpeg.HuffmanTablesDirectory.HuffmanTable;
-import com.drew.metadata.xmp.XmpDirectoryBase;
+import com.drew.metadata.xmp.XmpDirectory;
 import org.junit.Test;
 
 import java.io.File;
@@ -57,7 +57,7 @@ public class JpegMetadataReaderTest
     public void testExtractXmpMetadata() throws Exception
     {
         Metadata metadata = JpegMetadataReader.readMetadata(new File("Tests/Data/withXmp.jpg"));
-        Directory directory = metadata.getFirstDirectoryOfType(XmpDirectoryBase.class);
+        Directory directory = metadata.getFirstDirectoryOfType(XmpDirectory.class);
         assertNotNull(directory);
         directory = metadata.getFirstDirectoryOfType(HuffmanTablesDirectory.class);
         assertNotNull(directory);

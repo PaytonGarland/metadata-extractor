@@ -30,9 +30,9 @@ import com.drew.metadata.TagDescriptor;
  * @author Torsten Skadell, Drew Noakes https://drewnoakes.com
  */
 @SuppressWarnings("WeakerAccess")
-public class XmpDescriptorBase extends TagDescriptor<XmpDirectoryBase>
+public class XmpDescriptor extends TagDescriptor<XmpDirectory>
 {
-    public XmpDescriptorBase(@NotNull XmpDirectoryBase directory)
+    public XmpDescriptor(@NotNull XmpDirectory directory)
     {
         super(directory);
     }
