@@ -6,12 +6,8 @@ import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 /**
  * @author Payton Garland
@@ -72,15 +68,15 @@ public class ZipReader {
         pos += 2;
 
         fileModTimes.add(((lastModFileTime & 0xF800) >> 11) + ":"
-            + ((lastModFileTime & 0x07E0) >> 5) + ":"
-            + ((lastModFileTime & 0x001F) / 2));
+            + String.format("%1$02d", ((lastModFileTime & 0x07E0) >> 5)) + ":"
+            + String.format("%1$02d", ((lastModFileTime & 0x001F) / 2)));
 
         int lastModFileDate = reader.getInt16(pos);
         pos += 2;
 
         fileModDates.add((((lastModFileDate & 0xFE00) >> 9) + 1980) + ":"
-            + ((lastModFileDate & 0x01E0) >> 5) + ":"
-            + (lastModFileDate & 0x001F));
+            + String.format("%1$02d", ((lastModFileDate & 0x01E0) >> 5)) + ":"
+            + String.format("%1$02d", (lastModFileDate & 0x001F)));
 
 
         int crc32 = reader.getInt32(pos);
@@ -126,7 +122,7 @@ public class ZipReader {
         pos += fileCommentLength;
     }
 
-    public void extractEndOfCentralDirectory(@NotNull final RandomAccessStreamReader reader, @NotNull final Directory directory, @NotNull int pos) throws IOException
+    private void extractEndOfCentralDirectory(@NotNull final RandomAccessStreamReader reader, @NotNull final Directory directory, @NotNull int pos) throws IOException
     {
         pos += 3;
 
@@ -174,7 +170,7 @@ public class ZipReader {
         directory.setStringArray(tagType, tagHolder);
     }
 
-    public void addVersionMadeBy(int versionMadeBy)
+    private void addVersionMadeBy(int versionMadeBy)
     {
         int upperByte = ((versionMadeBy & 0xFF00) >> 8);
         switch (upperByte) {
@@ -328,30 +324,30 @@ public class ZipReader {
         switch (compressionMethod) {
             case (6):
                 if ((bitFlag & 0x0002) == 0x0002) {
-                    System.out.println("8k Sliding Dictionary");
+//                    System.out.println("8k Sliding Dictionary");
                 } else {
-                    System.out.println("4k Sliding Dictionary");
+//                    System.out.println("4k Sliding Dictionary");
                 }
                 if ((bitFlag & 0x0004) == 0x0004) {
-                    System.out.println("3 Shannon-Fano trees");
+//                    System.out.println("3 Shannon-Fano trees");
                 } else {
-                    System.out.println("2 Shannon-Fano trees");
+//                    System.out.println("2 Shannon-Fano trees");
                 }
                 break;
             case (8):
             case (9):
                 switch (bitFlag & 0x0006) {
                     case (0x0000):
-                        System.out.println("Normal Compressoin");
+//                        System.out.println("Normal Compressoin");
                         break;
                     case (0x0002):
-                        System.out.println("Maximum Compression");
+//                        System.out.println("Maximum Compression");
                         break;
                     case (0x0004):
-                        System.out.println("Fast Compression");
+//                        System.out.println("Fast Compression");
                         break;
                     case (0x0006):
-                        System.out.println("Super Fast Compression");
+//                        System.out.println("Super Fast Compression");
                         break;
                     default:
                 }
@@ -362,15 +358,15 @@ public class ZipReader {
         }
 
         if ((bitFlag & 0x0008) == 0x0008) {
-            System.out.println("Compressed/Uncompressed set to 0 in Local Header");
+//            System.out.println("Compressed/Uncompressed set to 0 in Local Header");
         } else {
-            System.out.println("Compressed/Uncompressed set in Local Header");
+//            System.out.println("Compressed/Uncompressed set in Local Header");
         }
 
         if ((bitFlag & 0x0020) == 0x0020) {
-            System.out.println("File is compressed, patched data");
+//            System.out.println("File is compressed, patched data");
         } else {
-            System.out.println("File is not compressed, patched data");
+//            System.out.println("File is not compressed, patched data");
         }
     }
 }

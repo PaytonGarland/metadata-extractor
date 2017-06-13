@@ -16,6 +16,8 @@ public class ZipDescriptor extends TagDescriptor<ZipDirectory>
     @Override
     public String getDescription(int tagType) {
         switch (tagType) {
+            case (ZipDirectory.TAG_UNCOMPRESSED_SIZE):
+            case (ZipDirectory.TAG_COMPRESSED_SIZE):
             case (ZipDirectory.TAG_ENCRYPTION):
             case (ZipDirectory.TAG_COMPRESSION):
             case (ZipDirectory.TAG_COMPATIBILITY):
