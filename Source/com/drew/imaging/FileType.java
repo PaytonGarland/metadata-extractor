@@ -41,6 +41,7 @@ public enum FileType
     Ico("image/x-icon", false, ".ico"),
     Pcx("image/x-pcx", false, ".pcx"),
     Riff(null, true, null),
+    Zip("application/zip", true, ".zip", ".zipx"),
 
     /** Sony camera raw. */
     Arw(null, false, ".arw"),
