@@ -5,9 +5,15 @@ import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 /**
  * @author Payton Garland
@@ -17,31 +23,68 @@ public class ZipReader {
     private ArrayList<String> fileModDates = new ArrayList<String>();
     private ArrayList<String> fileModTimes = new ArrayList<String>();
     private ArrayList<String> compatibility = new ArrayList<String>();
+    private ArrayList<String> versionsNeeded = new ArrayList<String>();
     private ArrayList<String> compression = new ArrayList<String>();
     private ArrayList<String> compressedSizes = new ArrayList<String>();
     private ArrayList<String> uncompressedSizes = new ArrayList<String>();
     private ArrayList<String> encryption = new ArrayList<String>();
 
     public void extract(@NotNull final RandomAccessStreamReader reader, @NotNull final Metadata metadata) throws IOException, ParseException {
-        reader.setMotorolaByteOrder(false);
+
+        ZipFile zipFile = new ZipFile(new File("Tests/Data/Archive.zip"));
+
         ZipDirectory directory = new ZipDirectory();
         metadata.addDirectory(directory);
-        int pos = 0;
 
+        Enumeration<? extends ZipEntry> entries = zipFile.entries();
+        int fileCount = 0;
 
-        int search = 0;
-        int centralDirectory = 0x02014B50;
-        int endOfCentralDirectory = 0x06054b50;
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = entries.nextElement();
+            int spacer = (fileCount * 5) + fileCount + 100;
+            fileCount++;
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            ZipDirectory._tagNameMap.put(spacer, "File " + fileCount + ": Name");
+            directory.setString(spacer, entry.getName());
 
-        while (!(search == endOfCentralDirectory)) {
-            search = reader.getInt32(pos);
-            pos++;
-            if (search == centralDirectory) {
-                search = 0;
-                extractCentralDirectory(reader, directory, pos);
-            }
+            ZipDirectory._tagNameMap.put(spacer + 1, "File " + fileCount + ": Modification Date");
+            Date date = new Date(entry.getTime());
+            String modificationDate = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss").format(date);
+            directory.setString(spacer + 1, modificationDate);
+
+            ZipDirectory._tagNameMap.put(spacer + 2, "File " + fileCount + ": Compressed Size");
+            directory.setString(spacer + 2, entry.getCompressedSize() + " bytes");
+
+            ZipDirectory._tagNameMap.put(spacer + 3, "File " + fileCount + ": Uncompressed Size");
+            directory.setString(spacer + 3, entry.getSize() + " bytes");
+
+            ZipDirectory._tagNameMap.put(spacer + 4, "File " + fileCount + ": Compression Method");
+            directory.setString(spacer + 4, addCompressionMethod(entry.getMethod()));
         }
-        extractEndOfCentralDirectory(reader, directory, pos);
+
+        directory.setInt(ZipDirectory.TAG_ZIP_FILE_COUNT, fileCount);
+//        reader.setMotorolaByteOrder(false);
+
+//        int pos = 0;
+//
+//
+//        int search = 0;
+//        int centralDirectory = 0x02014B50;
+//        int zip64endOfCentralDirectory = 0x06064B50;
+//        int endOfCentralDirectory = 0x06054b50;
+//
+//        while (!(search == endOfCentralDirectory)) {
+//            search = reader.getInt32(pos);
+//            pos++;
+//            if (search == centralDirectory) {
+//                search = 0;
+//                extractCentralDirectory(reader, directory, pos);
+//            } else if (search == zip64endOfCentralDirectory) {
+//                search = 0;
+//                extractZip64EndOfCentralDirectory(reader, directory, pos);
+//            }
+//        }
+//        extractEndOfCentralDirectory(reader, directory, pos);
     }
 
     private void extractCentralDirectory(@NotNull final RandomAccessStreamReader reader, @NotNull final Directory directory, @NotNull int pos) throws IOException
@@ -54,6 +97,7 @@ public class ZipReader {
 
         int versionNeeded = reader.getInt16(pos);
         pos += 2;
+        addVersionNeeded(versionNeeded);
 
         int bitFlag = reader.getInt16(pos);
         pos += 2;
@@ -67,7 +111,7 @@ public class ZipReader {
         int lastModFileTime = reader.getInt16(pos);
         pos += 2;
 
-        fileModTimes.add(((lastModFileTime & 0xF800) >> 11) + ":"
+        fileModTimes.add(String.format("%1$02d", ((lastModFileTime & 0xF800) >> 11)) + ":"
             + String.format("%1$02d", ((lastModFileTime & 0x07E0) >> 5)) + ":"
             + String.format("%1$02d", ((lastModFileTime & 0x001F) / 2)));
 
@@ -161,6 +205,39 @@ public class ZipReader {
         setStringArray(encryption, directory, ZipDirectory.TAG_ENCRYPTION, numberOfDirectories);
     }
 
+    private void extractZip64EndOfCentralDirectory(@NotNull final RandomAccessStreamReader reader, @NotNull final Directory directory, @NotNull int pos) throws IOException
+    {
+        //TODO: Test Zip64 extension
+        long sizeOfFields = reader.getInt64(pos);
+        pos += 8;
+
+        int versionMadeBy = reader.getInt16(pos);
+        pos += 2;
+
+        int versionNeeded = reader.getInt16(pos);
+        pos += 2;
+
+        int currentDiskNum = reader.getInt32(pos);
+        pos += 4;
+
+        int diskNumWithCentralDir = reader.getInt32(pos);
+        pos += 4;
+
+        //long numCentralDirectoriesOnDisk = reader.getInt64(pos);
+        pos += 8;
+
+        long totalNumberOfEntries = reader.getInt64(pos);
+        pos += 8;
+
+        long sizeOfCentralDirectory = reader.getInt64(pos);
+        pos += 8;
+
+        long offsetOfCentralDirectory = reader.getInt64(pos);
+        pos += 8;
+
+        pos += sizeOfCentralDirectory;
+    }
+
     private void setStringArray(ArrayList<String> values, Directory directory, int tagType, int numberOfDirectories)
     {
         String[] tagHolder = new String[numberOfDirectories];
@@ -239,77 +316,55 @@ public class ZipReader {
         }
     }
 
-    private void addCompressionMethod(int compressionMethod)
+    private String addCompressionMethod(int compressionMethod)
     {
         switch (compressionMethod) {
             case (0):
-                compression.add("The file is stored (no compression)");
-                break;
+                return ("The file is stored (no compression)");
             case (1):
-                compression.add("The file is Shrunk");
-                break;
+                return ("The file is Shrunk");
             case (2):
-                compression.add("The file is Reduced with compression factor 1");
-                break;
+                return ("The file is Reduced with compression factor 1");
             case (3):
-                compression.add("The file is Reduced with compression factor 2");
-                break;
+                return ("The file is Reduced with compression factor 2");
             case (4):
-                compression.add("The file is Reduced with compression factor 3");
-                break;
+                return ("The file is Reduced with compression factor 3");
             case (5):
-                compression.add("The file is Reduced with compression factor 4");
-                break;
+                return ("The file is Reduced with compression factor 4");
             case (6):
-                compression.add("The file is Imploded");
-                break;
+                return ("The file is Imploded");
             case (7):
-                compression.add("Reserved for Tokenizing compression algorithm");
-                break;
+                return ("Reserved for Tokenizing compression algorithm");
             case (8):
-                compression.add("The file is Deflated");
-                break;
+                return ("The file is Deflated");
             case (9):
-                compression.add("Enhanced Deflating using Deflate64(tm)");
-                break;
+                return ("Enhanced Deflating using Deflate64(tm)");
             case (10):
-                compression.add("PKWARE Data Compression Library Imploding (old IBM TERSE)");
-                break;
+                return ("PKWARE Data Compression Library Imploding (old IBM TERSE)");
             case (11):
-                compression.add("Reserved by PKWARE");
-                break;
+                return ("Reserved by PKWARE");
             case (12):
-                compression.add("File is compressed using BZIP2 algorithm");
-                break;
+                return ("File is compressed using BZIP2 algorithm");
             case (13):
-                compression.add("Reserved by PKWARE");
-                break;
+                return ("Reserved by PKWARE");
             case (14):
-                compression.add("LZMA (EFS)");
-                break;
+                return ("LZMA (EFS)");
             case (15):
-                compression.add("Reserved by PKWARE");
-                break;
+                return ("Reserved by PKWARE");
             case (16):
-                compression.add("Reserved by PKWARE");
-                break;
+                return ("Reserved by PKWARE");
             case (17):
-                compression.add("Reserved by PKWARE");
-                break;
+                return ("Reserved by PKWARE");
             case (18):
-                compression.add("File is compressed using IBM TERSE (new)");
-                break;
+                return ("File is compressed using IBM TERSE (new)");
             case (19):
-                compression.add("IBM LZ77 z Architecture (PFS)");
-                break;
+                return ("IBM LZ77 z Architecture (PFS)");
             case (97):
-                compression.add("WavPack compressed data");
-                break;
+                return ("WavPack compressed data");
             case (98):
-                compression.add("PPMd version I, Rev 1");
-                break;
+                return ("PPMd version I, Rev 1");
             default:
-                compression.add(" ");
+                return (" ");
         }
     }
 
@@ -368,5 +423,81 @@ public class ZipReader {
         } else {
 //            System.out.println("File is not compressed, patched data");
         }
+    }
+
+    private void addVersionNeeded(int versionNeeded)
+    {
+//        switch (versionNeeded) {
+//            case (1.0):
+//                versionsNeeded.add("Default value");
+//                break;
+//            case (1.1):
+//                versionsNeeded.add("File is a volume label");
+//                break;
+//            case (2.0):
+//                versionsNeeded.add("File is a folder (directory)");
+//                break;
+//            case (2.0):
+//                versionsNeeded.add("File is compressed using Deflate compression");
+//                break;
+//            case (2.0):
+//                versionsNeeded.add("File is encrypted using traditional PKWARE encryption");
+//                break;
+//            case (2.1):
+//                versionsNeeded.add("File is compressed using Deflate64(tm)");
+//                break;
+//            case (2.5):
+//                versionsNeeded.add("File is compressed using PKWARE DCL Implode");
+//                break;
+//            case (2.7):
+//                versionsNeeded.add("File is a patch data set");
+//                break;
+//            case (4.5):
+//                versionsNeeded.add("File uses ZIP64 format extensions");
+//                break;
+//            case (4.6):
+//                versionsNeeded.add("File is compressed using BZIP2 compression*");
+//                break;
+//            case (5.0):
+//                versionsNeeded.add("File is encrypted using DES");
+//                break;
+//            case (5.0):
+//                versionsNeeded.add("File is encrypted using 3DES");
+//                break;
+//            case (5.0):
+//                versionsNeeded.add("File is encrypted using original RC2 encryption");
+//                break;
+//            case (5.0):
+//                versionsNeeded.add("File is encrypted using RC4 encryption");
+//                break;
+//            case (5.1):
+//                versionsNeeded.add("File is encrypted using AES encryption");
+//                break;
+//            case (5.1):
+//                versionsNeeded.add("File is encrypted using corrected RC2 encryption**");
+//                break;
+//            case (5.2):
+//                versionsNeeded.add("File is encrypted using corrected RC2-64 encryption**");
+//                break;
+//            case (6.1):
+//                versionsNeeded.add("File is encrypted using non-OAEP key wrapping***");
+//                break;
+//            case (6.2):
+//                versionsNeeded.add("Central directory encryption");
+//                break;
+//            case (6.3):
+//                versionsNeeded.add("File is compressed using LZMA");
+//                break;
+//            case (6.3):
+//                versionsNeeded.add("File is compressed using PPMd+");
+//                break;
+//            case (6.3):
+//                versionsNeeded.add("File is encrypted using Blowfish");
+//                break;
+//            case (6.3):
+//                versionsNeeded.add("File is encrypted using Twofish");
+//                break;
+//            default:
+//        }
     }
 }

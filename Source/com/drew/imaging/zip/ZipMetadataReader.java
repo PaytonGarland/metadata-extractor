@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 
 /**
  * @author Drew Noakes
@@ -37,8 +38,10 @@ public class ZipMetadataReader {
             Metadata metadata = new Metadata();
             new ZipReader().extract(new RandomAccessStreamReader(inputStream), metadata);
             return metadata;
-        } catch (Exception e) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return new Metadata();
     }
