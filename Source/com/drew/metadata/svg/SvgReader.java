@@ -1,22 +1,11 @@
 package com.drew.metadata.svg;
 
-import com.adobe.xmp.XMPException;
-import com.adobe.xmp.XMPMeta;
-import com.adobe.xmp.XMPMetaFactory;
-import com.adobe.xmp.properties.XMPProperty;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.sun.deploy.xml.XMLAttribute;
 import com.sun.deploy.xml.XMLNode;
 import com.sun.deploy.xml.XMLParser;
-import com.sun.org.apache.xerces.internal.xni.XMLAttributes;
-import org.apache.commons.io.IOUtils;
 import org.xml.sax.SAXException;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
-import java.util.Scanner;
 
 /**
  * @author Payton Garland

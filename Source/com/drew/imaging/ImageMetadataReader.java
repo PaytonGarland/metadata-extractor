@@ -30,6 +30,7 @@ import com.drew.imaging.psd.PsdMetadataReader;
 import com.drew.imaging.raf.RafMetadataReader;
 import com.drew.imaging.tiff.TiffMetadataReader;
 import com.drew.imaging.webp.WebpMetadataReader;
+import com.drew.imaging.xml.XmlMetadataReader;
 import com.drew.lang.RandomAccessStreamReader;
 import com.drew.lang.StringUtil;
 import com.drew.lang.annotations.NotNull;

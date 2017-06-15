@@ -1,9 +1,10 @@
-package com.drew.imaging;
+package com.drew.imaging.xml;
 
 import com.adobe.xmp.XMPException;
 import com.adobe.xmp.XMPMeta;
 import com.adobe.xmp.XMPMetaFactory;
 import com.adobe.xmp.properties.XMPProperty;
+import com.drew.imaging.ImageProcessingException;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.file.FileMetadataReader;
