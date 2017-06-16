@@ -124,7 +124,8 @@ public class SvgReader {
         String name = node.getName();
         for (Integer key : SvgDirectory._tagNameMap.keySet()) {
             if (node.getNested() != null && node.getNested().getNested() == null && name.toUpperCase().equals(directory.getTagName(key).toUpperCase())) {
-                directory.setString(key, node.getNested().toString());
+                if (directory.getString(key) == null)
+                    directory.setString(key, node.getNested().toString());
             }
         }
     }

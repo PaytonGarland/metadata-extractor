@@ -33,6 +33,13 @@ public class SvgDirectory extends Directory
     public static final int TAG_FORMAT                                      = 19;
     public static final int TAG_IDENTIFIER                                  = 20;
     public static final int TAG_LANGUAGE                                    = 21;
+    public static final int TAG_AUDIENCE                                    = 22;
+    public static final int TAG_PROVENANCE                                  = 23;
+    public static final int TAG_RIGHTS_HOLDER                               = 24;
+    public static final int TAG_INSTRUCTIONAL_METHOD                        = 25;
+    public static final int TAG_ACCRUAL_METHOD                              = 26;
+    public static final int TAG_ACCRUAL_PERIODICITY                         = 27;
+    public static final int TAG_ACCRUAL_POLICY                              = 28;
 
     @NotNull
     protected static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
@@ -60,6 +67,13 @@ public class SvgDirectory extends Directory
         _tagNameMap.put(TAG_FORMAT, "Format");
         _tagNameMap.put(TAG_IDENTIFIER, "Identifier");
         _tagNameMap.put(TAG_LANGUAGE, "Language");
+        _tagNameMap.put(TAG_AUDIENCE, "Audience");
+        _tagNameMap.put(TAG_PROVENANCE, "Provenance");
+        _tagNameMap.put(TAG_RIGHTS_HOLDER, "Rights Holder");
+        _tagNameMap.put(TAG_INSTRUCTIONAL_METHOD, "Instructional Method");
+        _tagNameMap.put(TAG_ACCRUAL_METHOD, "Accrual Method");
+        _tagNameMap.put(TAG_ACCRUAL_PERIODICITY, "Accrual Periodicity");
+        _tagNameMap.put(TAG_ACCRUAL_POLICY, "Accrual Policy");
 
     }
 
