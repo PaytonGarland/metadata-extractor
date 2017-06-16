@@ -1,7 +1,6 @@
 package com.drew.metadata.svg;
 
 import com.drew.lang.annotations.NotNull;
-import com.drew.metadata.DublinCoreDirectory;
 import com.drew.metadata.Metadata;
 import com.sun.deploy.xml.XMLAttribute;
 import com.sun.deploy.xml.XMLNode;
@@ -42,7 +41,7 @@ public class SvgReader {
                 node = node.getNext();
             }
             if (node != null && node.getName().equals("metadata"))
-                addMetadata(node, directory);
+                addMetadata(node, directory, metadata);
 
         } catch (SAXException e) {
             e.printStackTrace();
@@ -57,28 +56,33 @@ public class SvgReader {
      */
     public void addAttributes(@NotNull XMLAttribute attribute, @NotNull SvgDirectory directory)
     {
-        String name = attribute.getName();
+        if (null != attribute) {
+            String name = attribute.getName();
 
-        // Filter attributes and add them to directory
-        if (name.equals("viewBox")) {
-            String[] bounds = attribute.getValue().split(" ");
-            if (bounds.length == 4) {
-                directory.setString(SvgDirectory.TAG_VIEWBOX_MIN_WIDTH, bounds[0]);
-                directory.setString(SvgDirectory.TAG_VIEWBOX_MIN_HEIGHT, bounds[1]);
-                directory.setString(SvgDirectory.TAG_VIEWBOX_WIDTH, bounds[2]);
-                directory.setString(SvgDirectory.TAG_VIEWBOX_HEIGHT, bounds[3]);
+            // Filter attributes and add them to directory
+            if (name.equals("viewBox")) {
+                String[] bounds = attribute.getValue().split(" ");
+                if (bounds.length == 4) {
+                    directory.setString(SvgDirectory.TAG_VIEWBOX_MIN_WIDTH, bounds[0]);
+                    directory.setString(SvgDirectory.TAG_VIEWBOX_MIN_HEIGHT, bounds[1]);
+                    directory.setString(SvgDirectory.TAG_VIEWBOX_WIDTH, bounds[2]);
+                    directory.setString(SvgDirectory.TAG_VIEWBOX_HEIGHT, bounds[3]);
+                } else {
+                    directory.addError("ERROR: ViewBox is missing values. Data not added.");
+                }
+            } else if (name.equals("width")) {
+                directory.setString(SvgDirectory.TAG_WIDTH, attribute.getValue());
+            } else if (name.equals("height")) {
+                directory.setString(SvgDirectory.TAG_HEIGHT, attribute.getValue());
             } else {
-                directory.addError("ERROR: ViewBox is missing values. Data not added.");
+                for (Integer key : SvgDirectory._tagNameMap.keySet()) {
+                    if (name.toUpperCase().equals(directory.getTagName(key).toUpperCase()) && (directory.getString(key) == null)) {
+                        directory.setString(key, attribute.getValue());
+                    }
+                }
             }
-        } else if (name.equals("width")) {
-            directory.setString(SvgDirectory.TAG_WIDTH, attribute.getValue());
-        } else if (name.equals("height")) {
-            directory.setString(SvgDirectory.TAG_HEIGHT, attribute.getValue());
-        } else {
-//            SvgDirectory._tagNameMap.put(attributeCount, attribute.getName());
-//            directory.setString(attributeCount, attribute.getValue());
+            attributeCount++;
         }
-        attributeCount++;
     }
 
     /**
@@ -88,15 +92,20 @@ public class SvgReader {
      * @param node XMLNode current node being parsed for attributes/children
      * @param directory Directory to be contributed to
      */
-    public void addMetadata(XMLNode node, @NotNull SvgDirectory directory)
+    public void addMetadata(XMLNode node, @NotNull SvgDirectory directory, @NotNull Metadata metadata)
     {
         // Base case
         if (node == null)
             return;
 
-        // Loop through all attributes
+        // Loop through all siblings
         XMLNode curr = node;
         while (curr != null) {
+            XMLAttribute attribute = node.getAttributes();
+            while (attribute != null) {
+                addAttributes(attribute, directory);
+                attribute = attribute.getNext();
+            }
             addDublinCoreMetadata(node, directory);
             curr = curr.getNext();
         }
@@ -104,7 +113,7 @@ public class SvgReader {
         // Get any children of current node and repeat
         XMLNode child = node.getNested();
         while (child != null) {
-            addMetadata(child, directory);
+            addMetadata(child, directory, metadata);
             child = child.getNext();
         }
 
