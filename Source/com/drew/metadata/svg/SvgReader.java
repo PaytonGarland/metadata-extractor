@@ -1,6 +1,7 @@
 package com.drew.metadata.svg;
 
 import com.drew.lang.annotations.NotNull;
+import com.drew.metadata.DublinCoreDirectory;
 import com.drew.metadata.Metadata;
 import com.sun.deploy.xml.XMLAttribute;
 import com.sun.deploy.xml.XMLNode;
@@ -94,9 +95,9 @@ public class SvgReader {
             return;
 
         // Loop through all attributes
-        XMLAttribute curr = node.getAttributes();
+        XMLNode curr = node;
         while (curr != null) {
-            addAttributes(curr, directory);
+            addDublinCoreMetadata(node, directory);
             curr = curr.getNext();
         }
 
@@ -107,6 +108,16 @@ public class SvgReader {
             child = child.getNext();
         }
 
+    }
+
+    public void addDublinCoreMetadata(XMLNode node, @NotNull SvgDirectory directory)
+    {
+        String name = node.getName();
+        for (Integer key : SvgDirectory._tagNameMap.keySet()) {
+            if (node.getNested() != null && node.getNested().getNested() == null && name.toUpperCase().equals(directory.getTagName(key).toUpperCase())) {
+                directory.setString(key, node.getNested().toString());
+            }
+        }
     }
 
 }
