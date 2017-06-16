@@ -14,6 +14,12 @@ public class SvgReader {
 
     int attributeCount = 0x0100;
 
+    /**
+     * Parses XML structure to find metadata and svg attributes.
+     *
+     * @param xmlParser XMLParser used to parse nodes/attributes
+     * @param metadata Metadata where extracted information is added
+     */
     public void extract(@NotNull final XMLParser xmlParser, @NotNull final Metadata metadata)
     {
         SvgDirectory directory = new SvgDirectory();
@@ -22,11 +28,14 @@ public class SvgReader {
         try {
             XMLNode svg = xmlParser.parse();
             XMLAttribute curr = svg.getAttributes();
+
+            // Add all attributes in SVG node
             while (curr != null) {
                 addAttributes(curr, directory);
                 curr = curr.getNext();
             }
 
+            // Search for metadata node (if there is one)
             XMLNode node = svg.getNested();
             while (node != null && !node.getName().equals("metadata")) {
                 node = node.getNext();
@@ -39,10 +48,17 @@ public class SvgReader {
         }
     }
 
+    /**
+     * Extract and filter encountered attributes.
+     *
+     * @param attribute XMLAttribute to be extracted
+     * @param directory Directory to be contributed to
+     */
     public void addAttributes(@NotNull XMLAttribute attribute, @NotNull SvgDirectory directory)
     {
         String name = attribute.getName();
 
+        // Filter attributes and add them to directory
         if (name.equals("viewBox")) {
             String[] bounds = attribute.getValue().split(" ");
             if (bounds.length == 4) {
@@ -58,23 +74,33 @@ public class SvgReader {
         } else if (name.equals("height")) {
             directory.setString(SvgDirectory.TAG_HEIGHT, attribute.getValue());
         } else {
-            SvgDirectory._tagNameMap.put(attributeCount, attribute.getName());
-            directory.setString(attributeCount, attribute.getValue());
+//            SvgDirectory._tagNameMap.put(attributeCount, attribute.getName());
+//            directory.setString(attributeCount, attribute.getValue());
         }
         attributeCount++;
     }
 
+    /**
+     * Recursively parses nodes in metadata to find attributes and passes the job
+     * over to addAttributes.
+     *
+     * @param node XMLNode current node being parsed for attributes/children
+     * @param directory Directory to be contributed to
+     */
     public void addMetadata(XMLNode node, @NotNull SvgDirectory directory)
     {
+        // Base case
         if (node == null)
             return;
 
+        // Loop through all attributes
         XMLAttribute curr = node.getAttributes();
         while (curr != null) {
             addAttributes(curr, directory);
             curr = curr.getNext();
         }
 
+        // Get any children of current node and repeat
         XMLNode child = node.getNested();
         while (child != null) {
             addMetadata(child, directory);
