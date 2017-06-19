@@ -1,11 +1,12 @@
 package com.drew.metadata.svg;
 
+import com.adobe.xmp.XMPException;
+import com.adobe.xmp.XMPMeta;
+import com.adobe.xmp.XMPMetaFactory;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
-import com.sun.deploy.xml.XMLAttribute;
-import com.sun.deploy.xml.XMLNode;
-import com.sun.deploy.xml.XMLParser;
-import com.sun.org.apache.xml.internal.security.transforms.params.XPathContainer;
+import com.drew.metadata.xmp.XmpDirectory;
+import com.drew.metadata.xmp.XmpReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -16,7 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.*;
 import java.io.*;
-import java.util.Iterator;
+import java.util.Scanner;
 
 /**
  * @author Payton Garland
@@ -41,14 +42,13 @@ public class SvgReader {
             NamespaceContext ctx = new SvgNamespaceResolver();
             xPath.setNamespaceContext(ctx);
 
-            // Get all attributes in SVG node
-            NodeList svgAttributeResults = (NodeList) xPath.evaluate("//svg/@*", doc, XPathConstants.NODESET);
+            // Get all attributes
+            NodeList svgAttributeResults = (NodeList) xPath.evaluate("//@*", doc, XPathConstants.NODESET);
             addResults(svgAttributeResults, directory);
 
             // Get all dublin core metadata elements
             NodeList dublinCoreResults = (NodeList) xPath.evaluate("//dc:*", doc, XPathConstants.NODESET);
             addResults(dublinCoreResults, directory);
-
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
@@ -60,6 +60,12 @@ public class SvgReader {
         }
     }
 
+    /**
+     * Sort through extracted node list and separate into directory accordingly.
+     *
+     * @param nodeList NodeList of elements to sort
+     * @param directory Directory to add sorted elements to
+     */
     private void addResults(NodeList nodeList, SvgDirectory directory)
     {
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -68,6 +74,12 @@ public class SvgReader {
                 if (name.toUpperCase().equals(directory.getTagName(key).toUpperCase())) {
                     if (directory.getString(key) == null)
                         directory.setString(key, nodeList.item(i).getTextContent().trim());
+                } else if (name.equals("viewBox")) {
+                    Scanner scnr = new Scanner(nodeList.item(i).getTextContent());
+                    directory.setFloat(1, scnr.nextFloat());
+                    directory.setFloat(3, scnr.nextFloat());
+                    directory.setFloat(2, scnr.nextFloat());
+                    directory.setFloat(4, scnr.nextFloat());
                 }
             }
         }
