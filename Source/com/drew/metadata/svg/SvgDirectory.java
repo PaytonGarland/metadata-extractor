@@ -2,8 +2,6 @@ package com.drew.metadata.svg;
 
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Directory;
-import com.drew.metadata.DublinCoreDirectory;
-import com.drew.metadata.xmp.XmpDirectory;
 
 import java.util.HashMap;
 

@@ -68,7 +68,7 @@ public class SvgReader {
                     directory.setString(SvgDirectory.TAG_VIEWBOX_WIDTH, bounds[2]);
                     directory.setString(SvgDirectory.TAG_VIEWBOX_HEIGHT, bounds[3]);
                 } else {
-                    directory.addError("ERROR: ViewBox is missing values. Data not added.");
+                    directory.addError("ERROR: ViewBox does not have a size of 4 values, there is missing or extra data... not added.");
                 }
             } else if (name.equals("width")) {
                 directory.setString(SvgDirectory.TAG_WIDTH, attribute.getValue());
