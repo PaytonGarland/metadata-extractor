@@ -32,7 +32,8 @@ public class ZipReader {
 
         while (entries.hasMoreElements()) {
             ZipEntry entry = entries.nextElement();
-            int spacer = (fileCount * 5) + fileCount + 100;
+
+            int spacer = (fileCount * 6) + fileCount + 100;
             fileCount++;
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
             ZipDirectory._tagNameMap.put(spacer, "File " + fileCount + ": Name");
@@ -51,6 +52,10 @@ public class ZipReader {
 
             ZipDirectory._tagNameMap.put(spacer + 4, "File " + fileCount + ": Compression Method");
             directory.setString(spacer + 4, addCompressionMethod(entry.getMethod()));
+
+            ZipDirectory._tagNameMap.put(spacer + 5, "File " + fileCount + ": Comment");
+            if (entry.getComment() != null)
+                directory.setString(spacer + 5, entry.getComment());
         }
 
         directory.setInt(ZipDirectory.TAG_ZIP_FILE_COUNT, fileCount);
