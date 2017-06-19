@@ -26,7 +26,7 @@ public class SvgReaderTest
         InputStream stream = new FileInputStream(new File(file));
         try {
             XMLParser xmlParser = new XMLParser(new String(FileUtil.readBytes(file)));
-            new SvgReader().extract(xmlParser, metadata);
+            new SvgReader().extract(stream, metadata);
         } catch (Exception e) {
             stream.close();
             throw e;

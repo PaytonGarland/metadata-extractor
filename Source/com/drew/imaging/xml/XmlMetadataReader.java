@@ -43,22 +43,8 @@ public class XmlMetadataReader {
         Scanner scnr = new Scanner(inputStream);
         Metadata metadata = new Metadata();
         String temp = "";
-        try {
-            while (scnr.hasNextLine()) {
-                temp += scnr.nextLine();
-            }
-            XMLParser xmlParser = new XMLParser(temp);
-            XMLNode node = xmlParser.parse();
-            if (!node.getName().equals("svg")) {
-                throw new ImageProcessingException("File format is not supported");
-            } else {
-                scnr.close();
-                SvgReader reader = new SvgReader();
-                reader.extract(xmlParser, metadata);
-            }
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
+        SvgReader reader = new SvgReader();
+        reader.extract(inputStream, metadata);
         return metadata;
     }
 }
