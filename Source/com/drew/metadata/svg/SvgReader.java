@@ -35,27 +35,19 @@ public class SvgReader {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setNamespaceAware(true);
-
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = documentBuilder.parse(inputStream);
-
             XPath xPath = XPathFactory.newInstance().newXPath();
-
             NamespaceContext ctx = new SvgNamespaceResolver();
-
             xPath.setNamespaceContext(ctx);
 
-            NodeList dublinCoreResults = (NodeList) xPath.evaluate("//dc:*", doc, XPathConstants.NODESET);
+            // Get all attributes in SVG node
+            NodeList svgAttributeResults = (NodeList) xPath.evaluate("//svg/@*", doc, XPathConstants.NODESET);
+            addResults(svgAttributeResults, directory);
 
-            for (int i = 0; i < dublinCoreResults.getLength(); i++) {
-                String name = dublinCoreResults.item(i).getLocalName();
-                for (Integer key : SvgDirectory._tagNameMap.keySet()) {
-                    if (name.toUpperCase().equals(directory.getTagName(key).toUpperCase())) {
-                        if (directory.getString(key) == null)
-                            directory.setString(key, dublinCoreResults.item(i).getTextContent().trim());
-                    }
-                }
-            }
+            // Get all dublin core metadata elements
+            NodeList dublinCoreResults = (NodeList) xPath.evaluate("//dc:*", doc, XPathConstants.NODESET);
+            addResults(dublinCoreResults, directory);
 
         } catch (SAXException e) {
             e.printStackTrace();
@@ -65,6 +57,19 @@ public class SvgReader {
             e.printStackTrace();
         } catch (XPathExpressionException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void addResults(NodeList nodeList, SvgDirectory directory)
+    {
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            String name = nodeList.item(i).getLocalName();
+            for (Integer key : SvgDirectory._tagNameMap.keySet()) {
+                if (name.toUpperCase().equals(directory.getTagName(key).toUpperCase())) {
+                    if (directory.getString(key) == null)
+                        directory.setString(key, nodeList.item(i).getTextContent().trim());
+                }
+            }
         }
     }
 }
