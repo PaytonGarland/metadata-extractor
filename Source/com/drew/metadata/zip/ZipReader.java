@@ -20,9 +20,9 @@ import java.util.zip.ZipFile;
  */
 public class ZipReader {
 
-    public void extract(@NotNull final RandomAccessStreamReader reader, @NotNull final Metadata metadata) throws IOException, ParseException {
+    public void extract(@NotNull final String filePath, @NotNull final Metadata metadata) throws IOException, ParseException {
 
-        ZipFile zipFile = new ZipFile(new File("Tests/Data/Archive.zip"));
+        ZipFile zipFile = new ZipFile(new File(filePath));
 
         ZipDirectory directory = new ZipDirectory();
         metadata.addDirectory(directory);

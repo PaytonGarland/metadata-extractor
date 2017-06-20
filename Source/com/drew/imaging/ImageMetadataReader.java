@@ -154,10 +154,19 @@ public class ImageMetadataReader
                 return WebpMetadataReader.readMetadata(inputStream);
             case Raf:
                 return RafMetadataReader.readMetadata(inputStream);
-            case Zip:
-                return ZipMetadataReader.readMetadata(inputStream);
             default:
                 throw new ImageProcessingException("File format is not supported");
+        }
+    }
+
+    @NotNull
+    public static Metadata readMetadata(@NotNull final File file, final long streamLength, final FileType fileType) throws IOException, ImageProcessingException
+    {
+        switch (fileType) {
+            case Zip:
+                return ZipMetadataReader.readMetadata(file.getAbsolutePath());
+            default:
+                return readMetadata(new FileInputStream(file), streamLength, fileType);
         }
     }
 

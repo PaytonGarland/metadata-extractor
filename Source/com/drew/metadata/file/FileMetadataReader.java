@@ -66,4 +66,5 @@ public class FileMetadataReader
 
         metadata.addDirectory(directory);
     }
+
 }
