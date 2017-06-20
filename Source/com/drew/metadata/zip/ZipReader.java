@@ -5,8 +5,7 @@ import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,24 +13,33 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 /**
  * @author Payton Garland
  */
 public class ZipReader {
 
-    public void extract(@NotNull final String filePath, @NotNull final Metadata metadata) throws IOException, ParseException {
+    public void extract(@NotNull final InputStream inputStream, @NotNull final Metadata metadata) throws IOException, ParseException {
 
-        ZipFile zipFile = new ZipFile(new File(filePath));
+        ZipInputStream zipInputStream = new ZipInputStream(inputStream);
 
         ZipDirectory directory = new ZipDirectory();
         metadata.addDirectory(directory);
 
-        Enumeration<? extends ZipEntry> entries = zipFile.entries();
+        ZipEntry entry = zipInputStream.getNextEntry();
         int fileCount = 0;
 
-        while (entries.hasMoreElements()) {
-            ZipEntry entry = entries.nextElement();
+        while (entry != null) {
+            if (entry.getName().equals("_rels/.rels")) {
+                FileOutputStream fileOutputStream = new FileOutputStream("../images/" + "rels.rels");
+
+                for (int i = zipInputStream.read(); i != -1; i = zipInputStream.read()) {
+                    fileOutputStream.write(i);
+                }
+                fileOutputStream.close();
+            }
+
 
             int spacer = (fileCount * 6) + fileCount + 100;
             fileCount++;
@@ -56,7 +64,9 @@ public class ZipReader {
             ZipDirectory._tagNameMap.put(spacer + 5, "File " + fileCount + ": Comment");
             if (entry.getComment() != null)
                 directory.setString(spacer + 5, entry.getComment());
+            entry = zipInputStream.getNextEntry();
         }
+        zipInputStream.close();
 
         directory.setInt(ZipDirectory.TAG_ZIP_FILE_COUNT, fileCount);
     }

@@ -21,17 +21,17 @@ public class ZipMetadataReader {
     public static Metadata readMetadata(@NotNull File file) throws IOException
     {
         Metadata metadata;
-        metadata = readMetadata(file.getAbsolutePath());
+        metadata = readMetadata(new FileInputStream(file));
         new FileMetadataReader().read(file, metadata);
         return metadata;
     }
 
     @NotNull
-    public static Metadata readMetadata(@NotNull String filePath)
+    public static Metadata readMetadata(@NotNull InputStream inputStream)
     {
         try {
             Metadata metadata = new Metadata();
-            new ZipReader().extract(filePath, metadata);
+            new ZipReader().extract(inputStream, metadata);
             return metadata;
         } catch (ParseException e) {
             e.printStackTrace();

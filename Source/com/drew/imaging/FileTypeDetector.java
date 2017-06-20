@@ -22,9 +22,17 @@ package com.drew.imaging;
 
 import com.drew.lang.ByteTrie;
 import com.drew.lang.annotations.NotNull;
+import com.sun.deploy.xml.XMLAttribute;
+import com.sun.deploy.xml.XMLNode;
+import com.sun.deploy.xml.XMLParser;
+import org.xml.sax.SAXException;
 
 import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * Examines the a file's first bytes and estimates the file's type.

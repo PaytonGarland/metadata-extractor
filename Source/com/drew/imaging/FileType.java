@@ -42,6 +42,8 @@ public enum FileType
     Pcx("image/x-pcx", false, ".pcx"),
     Riff(null, true, null),
     Zip("application/zip", true, ".zip", ".zipx"),
+    Docx("applicatoin/vnd.openxmlformats-officedocument.wordprocessingml.document", false, ".docx", ".docm"),
+    Xlsx("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", false, ".xlsx", ".xlsm"),
 
     /** Sony camera raw. */
     Arw(null, false, ".arw"),

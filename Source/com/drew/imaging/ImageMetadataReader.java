@@ -21,9 +21,11 @@
 package com.drew.imaging;
 
 import com.drew.imaging.bmp.BmpMetadataReader;
+import com.drew.imaging.ooxml.DocxMetadataReader;
 import com.drew.imaging.gif.GifMetadataReader;
 import com.drew.imaging.ico.IcoMetadataReader;
 import com.drew.imaging.jpeg.JpegMetadataReader;
+import com.drew.imaging.ooxml.XlsxMetadataReader;
 import com.drew.imaging.pcx.PcxMetadataReader;
 import com.drew.imaging.png.PngMetadataReader;
 import com.drew.imaging.psd.PsdMetadataReader;
@@ -154,19 +156,14 @@ public class ImageMetadataReader
                 return WebpMetadataReader.readMetadata(inputStream);
             case Raf:
                 return RafMetadataReader.readMetadata(inputStream);
+            case Zip:
+                return ZipMetadataReader.readMetadata(inputStream);
+            case Docx:
+                return DocxMetadataReader.readMetadata(inputStream);
+            case Xlsx:
+                return XlsxMetadataReader.readMetadata(inputStream);
             default:
                 throw new ImageProcessingException("File format is not supported");
-        }
-    }
-
-    @NotNull
-    public static Metadata readMetadata(@NotNull final File file, final long streamLength, final FileType fileType) throws IOException, ImageProcessingException
-    {
-        switch (fileType) {
-            case Zip:
-                return ZipMetadataReader.readMetadata(file.getAbsolutePath());
-            default:
-                return readMetadata(new FileInputStream(file), streamLength, fileType);
         }
     }
 
