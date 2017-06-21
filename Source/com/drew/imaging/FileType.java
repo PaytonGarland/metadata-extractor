@@ -44,6 +44,7 @@ public enum FileType
     Zip("application/zip", true, ".zip", ".zipx"),
     Docx("applicatoin/vnd.openxmlformats-officedocument.wordprocessingml.document", false, ".docx", ".docm"),
     Xlsx("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", false, ".xlsx", ".xlsm"),
+    Pptx("application/vnd.openxmlformats-officedocument.presentationml.presentation", false, ".pptx", ".pptm"),
 
     /** Sony camera raw. */
     Arw(null, false, ".arw"),

@@ -72,6 +72,8 @@ public class FileTypeDetector
         _root.addPath(FileType.Pcx, new byte[]{0x0A, 0x05, 0x01});
         _root.addPath(FileType.Riff, "RIFF".getBytes());
         _root.addPath(FileType.Zip, new byte[]{0x50, 0x4B, 0x03, 0x04});
+        _root.addPath(FileType.Olecf, new byte[]{(byte)0xD0, (byte)0xCF, 0x11, (byte)0xE0, (byte)0xA1, (byte)0xB1, 0x1A, (byte)0xE1});
+        _root.addPath(FileType.Olecf, new byte[]{0x0E, 0x11, (byte)0xFC, 0x0D, (byte)0xD0, (byte)0xCF, 0x11, 0x0E});
 
         _root.addPath(FileType.Arw, "II".getBytes(), new byte[]{0x2a, 0x00, 0x08, 0x00});
         _root.addPath(FileType.Crw, "II".getBytes(), new byte[]{0x1a, 0x00, 0x00, 0x00}, "HEAPCCDR".getBytes());
@@ -140,7 +142,7 @@ public class FileTypeDetector
         }
         return fileType;
     }
-
+    
     /**
      * Calls detectFileType at correct offset for the container type being passed in.
      * In the case of fileTypes without magic bytes to identify with (Zip), the fileType will be
