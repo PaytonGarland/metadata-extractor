@@ -2,10 +2,14 @@ package com.drew.metadata.mp3;
 
 import com.drew.imaging.ImageProcessingException;
 import com.drew.lang.SequentialReader;
+import com.drew.lang.StreamReader;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
+import com.drew.metadata.id3.Id3Reader;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
 
 /**
  * Sources: http://id3.org/mp3Frame
@@ -16,12 +20,29 @@ import java.io.IOException;
 public class Mp3Reader
 {
 
-    public void extract(@NotNull final SequentialReader reader, @NotNull final Metadata metadata)
+    public void extract(@NotNull final InputStream inputStream, @NotNull final Metadata metadata)
     {
         Mp3Directory directory = new Mp3Directory();
         metadata.addDirectory(directory);
 
         try {
+            SequentialReader reader = new StreamReader(inputStream);
+            byte[] identifier = reader.getBytes(3);
+
+            if (Arrays.equals("ID3".getBytes(), identifier)) {
+                Id3Reader id3Reader = new Id3Reader();
+                reader.skip(3);
+                int size = reader.getInt32();
+                inputStream.reset();
+                reader = new StreamReader(inputStream);
+                byte[] bytes = reader.getBytes(10 + size);
+                id3Reader.extract(bytes, metadata);
+            } else {
+                inputStream.reset();
+                reader = new StreamReader(inputStream);
+            }
+
+
             int header = reader.getInt32();
 
             // ID: MPEG-2.5, MPEG-2, or MPEG-1

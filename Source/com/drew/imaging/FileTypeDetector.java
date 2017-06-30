@@ -21,6 +21,8 @@
 package com.drew.imaging;
 
 import com.drew.lang.ByteTrie;
+import com.drew.lang.RandomAccessStreamReader;
+import com.drew.lang.StreamReader;
 import com.drew.lang.annotations.NotNull;
 
 import java.io.BufferedInputStream;
@@ -59,8 +61,8 @@ public class FileTypeDetector
         _root.addPath(FileType.Pcx, new byte[]{0x0A, 0x03, 0x01});
         _root.addPath(FileType.Pcx, new byte[]{0x0A, 0x05, 0x01});
         _root.addPath(FileType.Riff, "RIFF".getBytes());
-
         _root.addPath(FileType.Mp3, new byte[]{(byte)0xFF, (byte)0xFB});
+        _root.addPath(FileType.Id3, "ID3".getBytes());
 
         _root.addPath(FileType.Arw, "II".getBytes(), new byte[]{0x2a, 0x00, 0x08, 0x00});
         _root.addPath(FileType.Crw, "II".getBytes(), new byte[]{0x1a, 0x00, 0x00, 0x00}, "HEAPCCDR".getBytes());
@@ -106,7 +108,18 @@ public class FileTypeDetector
 
         inputStream.reset();
 
+        FileType fileType = _root.find(bytes);
+        if (fileType == FileType.Id3) {
+            StreamReader reader = new StreamReader(inputStream);
+            reader.skip(6);
+            int size = reader.getInt32();
+            inputStream.mark(size + 4);
+            reader.skip(size);
+            bytes = reader.getBytes(2);
+            fileType = _root.find(bytes);
+        }
+
         //noinspection ConstantConditions
-        return _root.find(bytes);
+        return fileType;
     }
 }
