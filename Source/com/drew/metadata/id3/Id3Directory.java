@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 public class Id3Directory extends Directory
 {
+    public static final int TAG_UNSYNCHRONISATION = "UNSYNCHRONISATION".hashCode();
+
     // Version 3
     public static final int TAG_AENC = "AENC".hashCode();
     public static final int TAG_APIC = "APIC".hashCode();
@@ -88,6 +90,8 @@ public class Id3Directory extends Directory
 
     static
     {
+        _tagNameMap.put(TAG_UNSYNCHRONISATION, "Unsynchronisation");
+
         // Version 3
         _tagNameMap.put(TAG_AENC, "Audio encryption");
         _tagNameMap.put(TAG_APIC, "Attached picture");

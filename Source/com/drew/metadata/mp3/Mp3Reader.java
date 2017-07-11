@@ -1,6 +1,7 @@
 package com.drew.metadata.mp3;
 
 import com.drew.imaging.ImageProcessingException;
+import com.drew.lang.ByteArrayReader;
 import com.drew.lang.SequentialReader;
 import com.drew.lang.StreamReader;
 import com.drew.lang.annotations.NotNull;
@@ -27,12 +28,13 @@ public class Mp3Reader
 
         try {
             SequentialReader reader = new StreamReader(inputStream);
-            byte[] identifier = reader.getBytes(3);
 
-            if (Arrays.equals("ID3".getBytes(), identifier)) {
+            byte[] id3Header = reader.getBytes(10);
+
+            if (Arrays.equals("ID3".getBytes(), Arrays.copyOfRange(id3Header, 0, 3))) {
                 Id3Reader id3Reader = new Id3Reader();
-                reader.skip(3);
-                int size = reader.getInt32();
+                ByteArrayReader byteArrayReader = new ByteArrayReader(id3Header);
+                int size = byteArrayReader.getInt32(6);
                 inputStream.reset();
                 reader = new StreamReader(inputStream);
                 byte[] bytes = reader.getBytes(10 + size);
@@ -148,6 +150,9 @@ public class Mp3Reader
                     break;
                 default:
             }
+
+            int frameSize = ((setBitrate(bitrate, layer, id) * 1000) * 144) / frequency;
+            directory.setString(Mp3Directory.TAG_FRAME_SIZE, frameSize + " bytes");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ImageProcessingException e) {

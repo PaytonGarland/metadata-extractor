@@ -109,15 +109,15 @@ public class FileTypeDetector
         inputStream.reset();
 
         FileType fileType = _root.find(bytes);
-        if (fileType == FileType.Id3) {
-            StreamReader reader = new StreamReader(inputStream);
-            reader.skip(6);
-            int size = reader.getInt32();
-            inputStream.mark(size + 4);
-            reader.skip(size);
-            bytes = reader.getBytes(2);
-            fileType = _root.find(bytes);
-        }
+//        if (fileType == FileType.Id3) {
+//            StreamReader reader = new StreamReader(inputStream);
+//            reader.skip(6);
+//            int size = reader.getInt32();
+//            inputStream.mark(size + 4);
+//            reader.skip(size);
+//            bytes = reader.getBytes(2);
+//            fileType = _root.find(bytes);
+//        }
 
         //noinspection ConstantConditions
         return fileType;

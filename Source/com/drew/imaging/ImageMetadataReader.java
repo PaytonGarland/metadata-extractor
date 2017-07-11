@@ -150,6 +150,7 @@ public class ImageMetadataReader
                 return WebpMetadataReader.readMetadata(inputStream);
             case Raf:
                 return RafMetadataReader.readMetadata(inputStream);
+            case Id3:
             case Mp3:
                 return Mp3MetadataReader.readMetadata(inputStream);
             default:
