@@ -142,7 +142,7 @@ public class FileTypeDetector
         }
         return fileType;
     }
-    
+
     /**
      * Calls detectFileType at correct offset for the container type being passed in.
      * In the case of fileTypes without magic bytes to identify with (Zip), the fileType will be
