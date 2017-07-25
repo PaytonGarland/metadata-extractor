@@ -4,7 +4,7 @@ import javax.xml.namespace.NamespaceContext;
 import java.util.Iterator;
 
 /**
- * Created by pgarland on 6/19/17.
+ * @author Payton Garland
  */
 public class SvgNamespaceResolver implements NamespaceContext {
     @Override

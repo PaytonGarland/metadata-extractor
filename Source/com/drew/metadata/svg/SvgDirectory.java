@@ -44,7 +44,6 @@ public class SvgDirectory extends Directory
     protected static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
 
     static {
-
         _tagNameMap.put(TAG_VIEWBOX_MIN_WIDTH, "View Box Minimum Width");
         _tagNameMap.put(TAG_VIEWBOX_WIDTH, "View Box Width");
         _tagNameMap.put(TAG_VIEWBOX_MIN_HEIGHT, "View Box Minimum Height");
@@ -74,7 +73,6 @@ public class SvgDirectory extends Directory
         _tagNameMap.put(TAG_ACCRUAL_PERIODICITY, "Accrual Periodicity");
         _tagNameMap.put(TAG_ACCRUAL_POLICY, "Accrual Policy");
         _tagNameMap.put(TAG_ID, "Id");
-
     }
 
     public SvgDirectory()
