@@ -41,7 +41,7 @@ public enum FileType
     Ico("image/x-icon", false, ".ico"),
     Pcx("image/x-pcx", false, ".pcx"),
     Riff(null, true, null),
-    Xml("application/xml", false, ".xml"),
+    Xml("application/xml", true, ".xml"),
     Svg("images/svg+xml", false, ".svg", ".svgz"),
 
     /** Sony camera raw. */

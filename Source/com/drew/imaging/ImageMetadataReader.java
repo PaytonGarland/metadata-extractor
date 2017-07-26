@@ -154,6 +154,7 @@ public class ImageMetadataReader
                 return WebpMetadataReader.readMetadata(inputStream);
             case Raf:
                 return RafMetadataReader.readMetadata(inputStream);
+            case Svg:
             case Xml:
                 return XmlMetadataReader.readMetadata(inputStream);
             default:
