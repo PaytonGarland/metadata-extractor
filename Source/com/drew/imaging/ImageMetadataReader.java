@@ -21,12 +21,9 @@
 package com.drew.imaging;
 
 import com.drew.imaging.bmp.BmpMetadataReader;
-import com.drew.imaging.ooxml.DocxMetadataReader;
 import com.drew.imaging.gif.GifMetadataReader;
 import com.drew.imaging.ico.IcoMetadataReader;
 import com.drew.imaging.jpeg.JpegMetadataReader;
-import com.drew.imaging.ooxml.PptxMetadataReader;
-import com.drew.imaging.ooxml.XlsxMetadataReader;
 import com.drew.imaging.pcx.PcxMetadataReader;
 import com.drew.imaging.png.PngMetadataReader;
 import com.drew.imaging.psd.PsdMetadataReader;
@@ -160,11 +157,9 @@ public class ImageMetadataReader
             case Zip:
                 return ZipMetadataReader.readMetadata(inputStream);
             case Docx:
-                return DocxMetadataReader.readMetadata(inputStream);
             case Xlsx:
-                return XlsxMetadataReader.readMetadata(inputStream);
             case Pptx:
-                return PptxMetadataReader.readMetadata(inputStream);
+                return new Metadata();
             default:
                 throw new ImageProcessingException("File format is not supported");
         }

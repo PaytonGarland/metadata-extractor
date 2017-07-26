@@ -72,8 +72,6 @@ public class FileTypeDetector
         _root.addPath(FileType.Pcx, new byte[]{0x0A, 0x05, 0x01});
         _root.addPath(FileType.Riff, "RIFF".getBytes());
         _root.addPath(FileType.Zip, new byte[]{0x50, 0x4B, 0x03, 0x04});
-        _root.addPath(FileType.Olecf, new byte[]{(byte)0xD0, (byte)0xCF, 0x11, (byte)0xE0, (byte)0xA1, (byte)0xB1, 0x1A, (byte)0xE1});
-        _root.addPath(FileType.Olecf, new byte[]{0x0E, 0x11, (byte)0xFC, 0x0D, (byte)0xD0, (byte)0xCF, 0x11, 0x0E});
 
         _root.addPath(FileType.Arw, "II".getBytes(), new byte[]{0x2a, 0x00, 0x08, 0x00});
         _root.addPath(FileType.Crw, "II".getBytes(), new byte[]{0x1a, 0x00, 0x00, 0x00}, "HEAPCCDR".getBytes());
@@ -156,9 +154,72 @@ public class FileTypeDetector
         switch (fileType) {
             case Riff:
                 return detectFileType(inputStream, 8);
+            case Zip:
+//                return zipFileTypeDetector(inputStream);
             case Tiff:
             default:
                 return fileType;
         }
+    }
+
+    @NotNull
+    private static FileType zipFileTypeDetector(InputStream inputStream)
+    {
+        try {
+            ZipInputStream zipInputStream = new ZipInputStream(inputStream);
+
+            ZipEntry entry = zipInputStream.getNextEntry();
+            while (entry != null) {
+                System.out.println(entry.getName());
+                if (entry.getName().equals("_rels/.rels")) {
+                    FileType fileType = detectOoxmlType(zipInputStream);
+                    if (fileType instanceof  FileType) {
+                        return fileType;
+                    }
+                }
+                entry = zipInputStream.getNextEntry();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        return FileType.Zip;
+    }
+
+    private static FileType detectOoxmlType(ZipInputStream zipInputStream) throws IOException, SAXException
+    {
+        StringBuilder relsContents = new StringBuilder();
+        for (int i = zipInputStream.read(); i != -1; i = zipInputStream.read()) {
+            relsContents.append((char)i);
+        }
+
+        XMLParser xmlParser = new XMLParser(relsContents.toString());
+        XMLNode node = xmlParser.parse();
+        if (node.getName().equals("Relationships")) {
+            node = node.getNested();
+            while (node != null) {
+                XMLAttribute attribute = node.getAttributes();
+                while (attribute != null) {
+                    if (attribute.getValue().equals("http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument")) {
+                        attribute = attribute.getNext();
+                        if (attribute.getValue().equals("word/document.xml")) {
+                            System.out.println("Docx File");
+                            return FileType.Docx;
+                        } else if (attribute.getValue().equals("xl/workbook.xml")) {
+                            System.out.println("Xlsx File");
+                            return FileType.Xlsx;
+                        } else if (attribute.getValue().equals("ppt/presentation.xml")) {
+                            System.out.println("Pptx File");
+                            return FileType.Pptx;
+                        }
+                    }
+                    attribute = attribute.getNext();
+                }
+                node = node.getNext();
+            }
+        }
+        return null;
     }
 }
