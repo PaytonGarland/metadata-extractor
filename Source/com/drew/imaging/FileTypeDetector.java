@@ -74,6 +74,8 @@ public class FileTypeDetector
         _root.addPath(FileType.Raf, "FUJIFILMCCD-RAW".getBytes());
         _root.addPath(FileType.Rw2, "II".getBytes(), new byte[]{0x55, 0x00});
 
+        _root.addPath(FileType.Bpg, new byte[]{0x42, 0x50, 0x47, (byte)0xFB});
+
     }
 
     private FileTypeDetector() throws Exception
