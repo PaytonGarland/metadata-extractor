@@ -18,6 +18,22 @@ public class TgpBoxTypes
     public static final String BOX_TIME_TO_SAMPLE                   = "stts";
     public static final String BOX_MEDIA_HEADER                     = "mdhd";
 
+    public static final String BOX_VISUAL_SAMPLE                    = "mp4v";
+    public static final String BOX_AUDIO_SAMPLE                     = "mp4a";
+    public static final String BOX_AMR_SAMPLE                       = "samr";
+    public static final String BOX_AMR_SAMPLE_2                     = "sawb";
+    public static final String BOX_H263_SAMPLE                      = "s263";
+    public static final String BOX_AMR_SPECIFIC                     = "damr";
+    public static final String BOX_H263_SPECIFIC                    = "d263";
+    public static final String BOX_AMRWP_SAMPLE                     = "sawp";
+    public static final String BOX_AMRWP_SPECIFIC                   = "dawp";
+    public static final String BOX_CVO_SAMPLE                       = "3gvo";
+    public static final String BOX_LOCATION_SAMPLE                  = "3glo";
+    public static final String BOX_ORIENTATION_SAMPLE               = "3gor";
+    public static final String BOX_EVS_SAMPLE                       = "sevs";
+
+
+
     public static ArrayList<String> _boxList = new ArrayList<String>();
 
     static {

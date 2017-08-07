@@ -5,10 +5,7 @@ import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.tgp.TgpBoxTypes;
 import com.drew.metadata.tgp.TgpMediaHandler;
-import com.drew.metadata.tgp.boxes.Box;
-import com.drew.metadata.tgp.boxes.Mp4AudioSampleEntryBox;
-import com.drew.metadata.tgp.boxes.Mp4VisualSampleEntryBox;
-import com.drew.metadata.tgp.boxes.SoundMediaHeaderBox;
+import com.drew.metadata.tgp.boxes.*;
 
 import java.io.IOException;
 
@@ -37,8 +34,8 @@ public class TgpSoundHandler extends TgpMediaHandler<TgpSoundDirectory>
     @Override
     public void processSampleDescription(@NotNull SequentialReader reader, @NotNull Box box) throws IOException
     {
-        Mp4AudioSampleEntryBox mp4AudioSampleEntryBox = new Mp4AudioSampleEntryBox(reader, box);
-        mp4AudioSampleEntryBox.addMetadata(directory);
+        AudioSampleEntry audioSampleEntry = new AudioSampleEntry(reader, box);
+        audioSampleEntry.addMetadata(directory);
     }
 
     @Override
@@ -51,7 +48,7 @@ public class TgpSoundHandler extends TgpMediaHandler<TgpSoundDirectory>
     @Override
     protected void processTimeToSample(@NotNull SequentialReader reader, @NotNull Box box) throws IOException
     {
-//        TimeToSampleBox timeToSampleBox = new TimeToSampleBox(reader, box);
-//        timeToSampleBox.addMetadata(directory);
+        TimeToSampleBox timeToSampleBox = new TimeToSampleBox(reader, box);
+        timeToSampleBox.addMetadata(directory);
     }
 }

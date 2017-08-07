@@ -23,26 +23,24 @@ public class TgpReader
         processBoxes(reader, -1, handler);
     }
 
-    private void processBoxes(StreamReader reader, long atomEnd, TgpHandler mp4Handler)
+    private void processBoxes(StreamReader reader, long atomEnd, TgpHandler tgpHandler)
     {
         try {
             while ((atomEnd == -1) ? true : reader.getPosition() < atomEnd) {
 
                 Box box = new Box(reader);
 
-                System.out.println(box.type);
-
                 /*
                  * Determine if fourCC is container/atom and process accordingly
                  * Unknown atoms will be skipped
                  */
-                if (mp4Handler.shouldAcceptContainer(box)) {
+                if (tgpHandler.shouldAcceptContainer(box)) {
 
-                    processBoxes(reader, box.size + reader.getPosition() - 8, mp4Handler.processContainer(box));
+                    processBoxes(reader, box.size + reader.getPosition() - 8, tgpHandler.processContainer(box));
 
-                } else if (mp4Handler.shouldAcceptBox(box)) {
+                } else if (tgpHandler.shouldAcceptBox(box)) {
 
-                    mp4Handler = mp4Handler.processBox(box, reader.getBytes((int)box.size - 8));
+                    tgpHandler = tgpHandler.processBox(box, reader.getBytes((int)box.size - 8));
 
                 } else {
 
