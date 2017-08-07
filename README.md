@@ -42,10 +42,11 @@ The library understands several formats of metadata, many of which may be presen
 * [PNG](http://en.wikipedia.org/wiki/Portable_Network_Graphics) properties
 * [BMP](http://en.wikipedia.org/wiki/BMP_file_format) properties
 * [GIF](http://en.wikipedia.org/wiki/Graphics_Interchange_Format) properties
-* [ICO](https://en.wikipedia.org/wiki/ICO_(file_format)) properties
+* [ICO](http://en.wikipedia.org/wiki/ICO_(file_format)) properties
 * [PCX](http://en.wikipedia.org/wiki/PCX) properties
-* [QuickTime](https://en.wikipedia.org/wiki/QuickTime_File_Format) properties
-* [MP4](https://en.wikipedia.org/wiki/MPEG-4_Part_14) properties
+* [QuickTime](http://en.wikipedia.org/wiki/QuickTime_File_Format) properties
+* [MP4](http://en.wikipedia.org/wiki/MPEG-4_Part_14) properties
+* [3GP](http://en.wikipedia.org/wiki/3GP_and_3G2) properties
 
 It will process files of type:
 
@@ -60,6 +61,7 @@ It will process files of type:
 * PCX
 * QuickTime
 * MP4
+* 3GP
 * Camera Raw
   * NEF (Nikon)
   * CR2 (Canon)
