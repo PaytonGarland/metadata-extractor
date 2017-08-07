@@ -30,6 +30,7 @@ import com.drew.imaging.pcx.PcxMetadataReader;
 import com.drew.imaging.png.PngMetadataReader;
 import com.drew.imaging.psd.PsdMetadataReader;
 import com.drew.imaging.raf.RafMetadataReader;
+import com.drew.imaging.tgp.TgpMetadataReader;
 import com.drew.imaging.tiff.TiffMetadataReader;
 import com.drew.imaging.webp.WebpMetadataReader;
 import com.drew.lang.RandomAccessStreamReader;
@@ -159,6 +160,8 @@ public class ImageMetadataReader
                 return QtMetadataReader.readMetadata(inputStream);
             case Mp4:
                 return Mp4MetadataReader.readMetadata(inputStream);
+            case Tgp:
+                return TgpMetadataReader.readMetadata(inputStream);
             default:
                 throw new ImageProcessingException("File format is not supported");
         }

@@ -114,6 +114,14 @@ public class FileTypeDetector
         _root.addPath(FileType.Heif, "ftypheix".getBytes());
         _root.addPath(FileType.Heif, "ftyphevc".getBytes());
         _root.addPath(FileType.Heif, "ftyphevx".getBytes());
+
+        _root.addPath(FileType.Tgp, "ftyp3gp4".getBytes());
+        _root.addPath(FileType.Tgp, "ftyp3gp5".getBytes());
+        _root.addPath(FileType.Tgp, "ftyp3gp6".getBytes());
+        _root.addPath(FileType.Tgp, "ftyp3gp7".getBytes());
+        _root.addPath(FileType.Tgp, "ftyp3gp8".getBytes());
+        _root.addPath(FileType.Tgp, "ftyp3gg9".getBytes());
+        _root.addPath(FileType.Tgp, "ftyp3gp9".getBytes());
     }
 
     private FileTypeDetector() throws Exception

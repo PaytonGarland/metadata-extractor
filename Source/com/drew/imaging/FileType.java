@@ -44,6 +44,7 @@ public enum FileType
     Mov("video/quicktime", true, ".mov", ".qt"),
     Mp4("video/mp4", false, ".mp4", ".m4a", ".m4p", ".m4b", ".m4r", ".m4v"),
     Heif("image/heif", false, ".heif", ".heic"),
+    Tgp("video/3gpp", false, ".3gp"),
 
     /** Sony camera raw. */
     Arw(null, false, ".arw"),
