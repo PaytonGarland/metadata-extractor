@@ -48,114 +48,105 @@ public class XmpDirectory extends Directory
 {
     public static final int TAG_XMP_VALUE_COUNT = 0xFFFF;
 
-    // AAS
-    public static final int TAG_XMP_AAS_AAS = "aas:aas".hashCode();
-    public static final int TAG_XMP_AAS_ACDSEE = "aas:acdsee".hashCode();
-    public static final int TAG_XMP_AAS_ALBUM = "aas:album".hashCode();
-    public static final int TAG_XMP_AAS_APPLE_FI = "aas:apple-fi".hashCode();
-    public static final int TAG_XMP_AAS_AUX = "aas:aux".hashCode();
-    public static final int TAG_XMP_AAS_CC = "aas:cc".hashCode();
-    public static final int TAG_XMP_AAS_CELL = "aas:cell".hashCode();
-    public static final int TAG_XMP_AAS_CREATORATOM = "aas:creatorAtom".hashCode();
-    public static final int TAG_XMP_AAS_CRS = "aas:crs".hashCode();
-    public static final int TAG_XMP_AAS_DC = "aas:dc".hashCode();
-    public static final int TAG_XMP_AAS_DEX = "aas:dex".hashCode();
-    public static final int TAG_XMP_AAS_DICOM = "aas:DICOM".hashCode();
-    public static final int TAG_XMP_AAS_DIGIKAM = "aas:digiKam".hashCode();
-    public static final int TAG_XMP_AAS_DWC = "aas:dwc".hashCode();
-    public static final int TAG_XMP_AAS_EXIF = "aas:exif".hashCode();
-    public static final int TAG_XMP_AAS_EXIFEX = "aas:exifEX".hashCode();
-    public static final int TAG_XMP_AAS_EXPRESSIONMEDIA = "aas:expressionmedia".hashCode();
-    public static final int TAG_XMP_AAS_EXTENSIS = "aas:extensis".hashCode();
-    public static final int TAG_XMP_AAS_FPV = "aas:fpv".hashCode();
-    public static final int TAG_XMP_AAS_GAUDIO = "aas:GAudio".hashCode();
-    public static final int TAG_XMP_AAS_GETTY = "aas:getty".hashCode();
-    public static final int TAG_XMP_AAS_GIMAGE = "aas:GImage".hashCode();
-    public static final int TAG_XMP_AAS_GPANO = "aas:GPano".hashCode();
-    public static final int TAG_XMP_AAS_GSPHERICAL = "aas:GSpherical".hashCode();
-    public static final int TAG_XMP_AAS_ICS = "aas:ics".hashCode();
-    public static final int TAG_XMP_AAS_IPTCCORE = "aas:iptcCore".hashCode();
-    public static final int TAG_XMP_AAS_IPTCEXT = "aas:iptcExt".hashCode();
-    public static final int TAG_XMP_AAS_LR = "aas:lr".hashCode();
-    public static final int TAG_XMP_AAS_MEDIAPRO = "aas:mediapro".hashCode();
-    public static final int TAG_XMP_AAS_MICROSOFT = "aas:microsoft".hashCode();
-    public static final int TAG_XMP_AAS_MP = "aas:MP".hashCode();
-    public static final int TAG_XMP_AAS_MP1 = "aas:MP1".hashCode();
-    public static final int TAG_XMP_AAS_MWG_COLL = "aas:mwg-coll".hashCode();
-    public static final int TAG_XMP_AAS_MWG_KW = "aas:mwg-kw".hashCode();
-    public static final int TAG_XMP_AAS_MWG_RS = "aas:mwg-rs".hashCode();
-    public static final int TAG_XMP_AAS_PDF = "aas:pdf".hashCode();
-    public static final int TAG_XMP_AAS_PDFX = "aas:pdfx".hashCode();
-    public static final int TAG_XMP_AAS_PHOTOMECH = "aas:photomech".hashCode();
-    public static final int TAG_XMP_AAS_PHOTOSHOP = "aas:photoshop".hashCode();
-    public static final int TAG_XMP_AAS_PIXELLIVE = "aas:PixelLive".hashCode();
-    public static final int TAG_XMP_AAS_PLUS = "aas:plus".hashCode();
-    public static final int TAG_XMP_AAS_PMI = "aas:pmi".hashCode();
-    public static final int TAG_XMP_AAS_PRISM = "aas:prism".hashCode();
-    public static final int TAG_XMP_AAS_PRL = "aas:prl".hashCode();
-    public static final int TAG_XMP_AAS_PRM = "aas:prm".hashCode();
-    public static final int TAG_XMP_AAS_PUR = "aas:pur".hashCode();
-    public static final int TAG_XMP_AAS_RDF = "aas:rdf".hashCode();
-    public static final int TAG_XMP_AAS_SWF = "aas:swf".hashCode();
-    public static final int TAG_XMP_AAS_TIFF = "aas:tiff".hashCode();
-    public static final int TAG_XMP_AAS_X = "aas:x".hashCode();
-    public static final int TAG_XMP_AAS_XMP = "aas:xmp".hashCode();
-    public static final int TAG_XMP_AAS_XMPBJ = "aas:xmpBJ".hashCode();
-    public static final int TAG_XMP_AAS_XMPDM = "aas:xmpDM".hashCode();
-    public static final int TAG_XMP_AAS_XMPMM = "aas:xmpMM".hashCode();
-    public static final int TAG_XMP_AAS_XMPNOTE = "aas:xmpNote".hashCode();
-    public static final int TAG_XMP_AAS_XMPPLUS = "aas:xmpPLUS".hashCode();
-    public static final int TAG_XMP_AAS_XMPRIGHTS = "aas:xmpRights".hashCode();
-    public static final int TAG_XMP_AAS_XMPTPG = "aas:xmpTPg".hashCode();
+    public static HashMap<String, HashMap<String, Integer>> _namespaceMap = new HashMap<String, HashMap<String, Integer>>();
+    public static HashMap<String, Integer> _aasMap = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> _acdseeMap = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> _albumMap = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> _appleFiMap = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> _auxMap = new HashMap<String, Integer>();
 
-    //ACDSEE
-    public static final int TAG_XMP_ACDSEE_AUTHOR = "acdsee:Author".hashCode();
-    public static final int TAG_XMP_ACDSEE_CAPTION = "acdsee:Caption".hashCode();
-    public static final int TAG_XMP_ACDSEE_CATEGORIES = "acdsee:Categories".hashCode();
-    public static final int TAG_XMP_ACDSEE_COLLECTIONS = "acdsee:Collections".hashCode();
-    public static final int TAG_XMP_ACDSEE_DATETIME = "acdsee:DateTime".hashCode();
-    public static final int TAG_XMP_ACDSEE_DPP = "acdsee:DPP".hashCode();
-    public static final int TAG_XMP_ACDSEE_EDITSTATUS = "acdsee:EditStatus".hashCode();
-    public static final int TAG_XMP_ACDSEE_FIXTUREIDENTIFIER = "acdsee:FixtureIdentifier".hashCode();
-    public static final int TAG_XMP_ACDSEE_KEYWORDS = "acdsee:Keywords".hashCode();
-    public static final int TAG_XMP_ACDSEE_NOTES = "acdsee:Notes".hashCode();
-    public static final int TAG_XMP_ACDSEE_OBJECTCYCLE = "acdsee:ObjectCycle".hashCode();
-    public static final int TAG_XMP_ACDSEE_ORIGINATINGPROGRAM = "acdsee:OriginatingProgram".hashCode();
-    public static final int TAG_XMP_ACDSEE_RATING = "acdsee:Rating".hashCode();
-    public static final int TAG_XMP_ACDSEE_RAWRPPUSED = "acdsee:Rawrppused".hashCode();
-    public static final int TAG_XMP_ACDSEE_RELEASEDATE = "acdsee:ReleaseDate".hashCode();
-    public static final int TAG_XMP_ACDSEE_RELEASETIME = "acdsee:ReleaseTime".hashCode();
-    public static final int TAG_XMP_ACDSEE_RPP = "acdsee:RPP".hashCode();
-    public static final int TAG_XMP_ACDSEE_SNAPSHOTS = "acdsee:Snapshots".hashCode();
-    public static final int TAG_XMP_ACDSEE_TAGGED = "acdsee:Tagged".hashCode();
+    static {
+        _namespaceMap.put("http://ns.apple.com/adjustment-settings/1.0/", _aasMap);
+        _namespaceMap.put("http://ns.acdsee.com/iptc/1.0/", _acdseeMap);
+    }
 
-    // Album
-    public static final int TAG_XMP_ALBUM_NOTES = "album:Notes".hashCode();
+    static {
+        // AAS
+        _aasMap.put("AffineA", 1);
+        _aasMap.put("AffineB", 2);
+        _aasMap.put("AffineC", 3);
+        _aasMap.put("AffineD", 4);
+        _aasMap.put("AffineX", 5);
+        _aasMap.put("AffineY", 6);
+        _aasMap.put("CropH", 7);
+        _aasMap.put("CropW", 8);
+        _aasMap.put("CropX", 9);
+        _aasMap.put("CropY", 10);
+        _aasMap.put("Curve0x", 11);
+        _aasMap.put("Curve0y", 12);
+        _aasMap.put("Curve1x", 13);
+        _aasMap.put("Curve1y", 14);
+        _aasMap.put("Curve2x", 15);
+        _aasMap.put("Curve2y", 16);
+        _aasMap.put("Curve3x", 17);
+        _aasMap.put("Curve3y", 18);
+        _aasMap.put("Curve4x", 19);
+        _aasMap.put("Curve4y", 20);
+        _aasMap.put("FaceBalanceOrigl", 21);
+        _aasMap.put("FaceBalanceOrigQ", 22);
+        _aasMap.put("FaceBalanceStrength", 23);
+        _aasMap.put("FaceBalanceWarmth", 24);
+        _aasMap.put("Highlights", 25);
+        _aasMap.put("Shadows", 26);
+        _aasMap.put("Vibrance", 27);
+    }
 
-    // Apple_fi
-    public static final int TAG_XMP_APPLE_FI_ANGLEINFOROLL = "apple_fi:AngleInfoRoll".hashCode();
-    public static final int TAG_XMP_APPLE_FI_ANGLEINFOYAW = "apple_fi:AngleInfoYaw".hashCode();
-    public static final int TAG_XMP_APPLE_FI_CONFIDENCELEVEL = "apple_fi:ConfidenceLevel".hashCode();
-    public static final int TAG_XMP_APPLE_FI_FACEID = "apple_fi:FaceID".hashCode();
-    public static final int TAG_XMP_APPLE_FI_TIMESTAMP = "apple_fi:TimeStamp".hashCode();
+    static {
+        // ACDSEE
+        _acdseeMap.put("Author", 101);
+        _acdseeMap.put("Caption", 102);
+        _acdseeMap.put("Categories", 103);
+        _acdseeMap.put("Collections", 104);
+        _acdseeMap.put("DateTime", 105);
+        _acdseeMap.put("DPP", 106);
+        _acdseeMap.put("EditStatus", 107);
+        _acdseeMap.put("FixtureIdentifier", 108);
+        _acdseeMap.put("Keywords", 109);
+        _acdseeMap.put("Notes", 110);
+        _acdseeMap.put("ObjectCycle", 111);
+        _acdseeMap.put("OriginatingProgram", 112);
+        _acdseeMap.put("Rating", 113);
+        _acdseeMap.put("Rawrppused", 114);
+        _acdseeMap.put("ReleaseDate", 115);
+        _acdseeMap.put("ReleaseTime", 116);
+        _acdseeMap.put("RPP", 117);
+        _acdseeMap.put("Snapshots", 118);
+        _acdseeMap.put("Tagged", 119);
+    }
 
-    // Aux
-    public static final int TAG_XMP_AUX_APPROXIMATEFOCUSDISTANCE = "aux:ApproximateFocusDistance".hashCode();
-    public static final int TAG_XMP_AUX_DISTORTIONCORRECTIONALREADYAPPLIED = "aux:DistortionCorrectionAlreadyApplied".hashCode();
-    public static final int TAG_XMP_AUX_FIRMWARE = "aux:Firmware".hashCode();
-    public static final int TAG_XMP_AUX_FLASHCOMPENSATION = "aux:FlashCompensation".hashCode();
-    public static final int TAG_XMP_AUX_IMAGENUMBER = "aux:ImageNumber".hashCode();
-    public static final int TAG_XMP_AUX_ISMERGEDHDR = "aux:IsMergedHDR".hashCode();
-    public static final int TAG_XMP_AUX_ISMERGEDPANORAMA = "aux:IsMergedPanorama".hashCode();
-    public static final int TAG_XMP_AUX_LATERALCHROMATICABERRATIONCORRECTIONALREADYAPPLIED = "aux:LateralChromaticAberrationCorrectionAlreadyApplied".hashCode();
-    public static final int TAG_XMP_AUX_LENS = "aux:Lens".hashCode();
-    public static final int TAG_XMP_AUX_LENSDISTORTINFO = "aux:LensDistortInfo".hashCode();
-    public static final int TAG_XMP_AUX_LENSID = "aux:LensID".hashCode();
-    public static final int TAG_XMP_AUX_LENSINFO = "aux:LensInfo".hashCode();
-    public static final int TAG_XMP_AUX_LENSSERIALNUMBER = "aux:LensSerialNumber".hashCode();
-    public static final int TAG_XMP_AUX_OWNERNAME = "aux:OwnerName".hashCode();
-    public static final int TAG_XMP_AUX_SERIALNUMBER = "aux:SerialNumber".hashCode();
-    public static final int TAG_XMP_AUX_VIGNETTECORRECTIONALREADYAPPLIED = "aux:VignetteCorrectionAlreadyApplied".hashCode();
+    static {
+        // Album
+        _albumMap.put("Notes", 201);
+    }
+
+    static {
+        // Apple Fi
+        _appleFiMap.put("AngleInfoRoll", 301);
+        _appleFiMap.put("AngleInfoYaw", 302);
+        _appleFiMap.put("ConfidenceLevel", 303);
+        _appleFiMap.put("FaceID", 304);
+        _appleFiMap.put("TimeStamp", 305);
+    }
+
+    static {
+        // Aux
+        _auxMap.put("ApproximateFocusDistance", 401);
+        _auxMap.put("DistortionCorrectionAlreadyApplied", 402);
+        _auxMap.put("Firmware", 403);
+        _auxMap.put("FlashCompensation", 404);
+        _auxMap.put("ImageNumber", 405);
+        _auxMap.put("IsMergedHDR", 406);
+        _auxMap.put("IsMergedPanorama", 407);
+        _auxMap.put("LateralChromaticAberrationCorrectionAlreadyApplied", 408);
+        _auxMap.put("Lens", 409);
+        _auxMap.put("LensDistortInfo", 410);
+        _auxMap.put("LensID", 411);
+        _auxMap.put("LensInfo", 412);
+        _auxMap.put("LensSerialNumber", 413);
+        _auxMap.put("OwnerName", 414);
+        _auxMap.put("SerialNumber", 415);
+        _auxMap.put("VignetteCorrectionAlreadyApplied", 416);
+    }
 
     // CC
     public static final int TAG_XMP_CC_ATTRIBUTIONNAME = "cc:AttributionName".hashCode();
