@@ -25,6 +25,7 @@ import com.drew.lang.RandomAccessStreamReader;
 import com.drew.lang.SequentialReader;
 import com.drew.lang.StreamReader;
 import com.drew.lang.annotations.NotNull;
+import com.drew.metadata.mp3.Mp3Reader;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -67,6 +68,8 @@ public class FileTypeDetector
         _root.addPath(FileType.Pcx, new byte[]{0x0A, 0x05, 0x01});
         _root.addPath(FileType.Riff, "RIFF".getBytes());
         _root.addPath(FileType.Mp3, new byte[]{(byte)0xFF, (byte)0xFB});
+        _root.addPath(FileType.Mp3, new byte[]{(byte)0xFF, (byte)0xFA});
+        _root.addPath(FileType.Mp3, new byte[]{(byte)0xFF, (byte)0xF3});
         _root.addPath(FileType.Id3, "ID3".getBytes());
 
         _root.addPath(FileType.Arw, "II".getBytes(), new byte[]{0x2a, 0x00, 0x08, 0x00});
@@ -154,29 +157,12 @@ public class FileTypeDetector
                 SequentialReader reader = new StreamReader(inputStream);
                 reader.skip(6);
                 int id3Size = reader.getInt32();
-                id3Size = getSyncSafeSize(id3Size);
+                id3Size = Mp3Reader.getSyncSafeSize(id3Size);
+                inputStream.mark(id3Size + 10);
                 return detectFileType(inputStream, id3Size);
             case Tiff:
             default:
                 return fileType;
         }
-    }
-
-    /**
-     * https://phoxis.org/2010/05/08/synch-safe/
-     */
-    private static int getSyncSafeSize(int decode)
-    {
-        int a = decode & 0xFF;
-        int b = (decode >> 8) & 0xFF;
-        int c  = (decode >> 16) & 0xFF;
-        int d = (decode >> 24) & 0xFF;
-
-        int decoded = 0x0;
-        decoded = decoded | a;
-        decoded = decoded | (b << 7);
-        decoded = decoded | (c << 14);
-        decoded = decoded | (d << 21);
-        return decoded;
     }
 }

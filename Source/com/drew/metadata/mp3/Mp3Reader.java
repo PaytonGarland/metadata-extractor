@@ -27,25 +27,18 @@ public class Mp3Reader
         metadata.addDirectory(directory);
 
         try {
+            inputStream.reset();
             SequentialReader reader = new StreamReader(inputStream);
 
-            byte[] id3Header = reader.getBytes(10);
-
-            if (Arrays.equals("ID3".getBytes(), Arrays.copyOfRange(id3Header, 0, 3))) {
-                Id3Reader id3Reader = new Id3Reader();
-                ByteArrayReader byteArrayReader = new ByteArrayReader(id3Header);
-                int size = byteArrayReader.getInt32(6);
-                inputStream.reset();
-                reader = new StreamReader(inputStream);
-                byte[] bytes = reader.getBytes(10 + size);
-                id3Reader.extract(bytes, metadata);
-            } else {
-                inputStream.reset();
-                reader = new StreamReader(inputStream);
-            }
-
-
             int header = reader.getInt32();
+
+            if (((header & 0xFFFFFF00) >> 8) == 0x494433) {
+                Id3Reader id3Reader = new Id3Reader();
+                reader.skip(2);
+                int id3Size = reader.getInt32();
+                id3Size = getSyncSafeSize(id3Size);
+                id3Reader.extract(reader.getBytes(id3Size), metadata);
+            }
 
             // ID: MPEG-2.5, MPEG-2, or MPEG-1
             double id = 0;
@@ -212,5 +205,23 @@ public class Mp3Reader
         }
 
         return bitrateMapping[yPos][xPos];
+    }
+
+    /**
+     * https://phoxis.org/2010/05/08/synch-safe/
+     */
+    public static int getSyncSafeSize(int decode)
+    {
+        int a = decode & 0xFF;
+        int b = (decode >> 8) & 0xFF;
+        int c  = (decode >> 16) & 0xFF;
+        int d = (decode >> 24) & 0xFF;
+
+        int decoded = 0x0;
+        decoded = decoded | a;
+        decoded = decoded | (b << 7);
+        decoded = decoded | (c << 14);
+        decoded = decoded | (d << 21);
+        return decoded;
     }
 }
