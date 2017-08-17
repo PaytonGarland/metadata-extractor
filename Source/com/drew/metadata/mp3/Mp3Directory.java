@@ -18,6 +18,7 @@ public class Mp3Directory extends Directory
     public static final int TAG_MODE = 5;
     public static final int TAG_EMPHASIS = 6;
     public static final int TAG_COPYRIGHT = 7;
+    public static final int TAG_FRAME_SIZE = 8;
 
     @NotNull
     protected static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
@@ -31,6 +32,7 @@ public class Mp3Directory extends Directory
         _tagNameMap.put(TAG_MODE, "Mode");
         _tagNameMap.put(TAG_EMPHASIS, "Emphasis Method");
         _tagNameMap.put(TAG_COPYRIGHT, "Copyright");
+        _tagNameMap.put(TAG_FRAME_SIZE, "Frame Size");
     }
 
     public Mp3Directory()

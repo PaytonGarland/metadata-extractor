@@ -37,7 +37,7 @@ public class Mp3MetadataReader
     public static Metadata readMetadata(@NotNull InputStream inputStream)
     {
         Metadata metadata = new Metadata();
-        new Mp3Reader().extract(new StreamReader(inputStream), metadata);
+        new Mp3Reader().extract(inputStream, metadata);
         return metadata;
     }
 }
