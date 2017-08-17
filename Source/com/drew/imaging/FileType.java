@@ -31,7 +31,7 @@ import com.drew.lang.annotations.Nullable;
  */
 public enum FileType
 {
-    Unknown(null, false),
+    Unknown(null, false, null),
     Jpeg("image/jpeg", false, ".jpg", ".jpeg", ".jpe"),
     Tiff("image/tiff", true, ".tiff", ".tif"),
     Psd("image/vnd.adobe.photoshop", false, ".psd"),
@@ -41,6 +41,8 @@ public enum FileType
     Ico("image/x-icon", false, ".ico"),
     Pcx("image/x-pcx", false, ".pcx"),
     Riff(null, true, null),
+    Mp3("audio/mpeg", false, ".mp3"),
+    Id3(null, true, null),
 
     /** Sony camera raw. */
     Arw(null, false, ".arw"),

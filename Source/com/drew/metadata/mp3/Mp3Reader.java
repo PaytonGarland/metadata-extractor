@@ -24,16 +24,6 @@ public class Mp3Reader
         try {
             int header = reader.getInt32();
 
-            while ((header & 0xFFFFFF00) >> 8 == 0x494433) {
-                reader.skip(2);
-                int id3Size = reader.getInt32();
-
-                id3Size = getSyncSafeInteger(id3Size);
-
-                System.out.println(reader.trySkip(id3Size));
-                header = reader.getInt32();
-            }
-
             // ID: MPEG-2.5, MPEG-2, or MPEG-1
             double id = 0;
             switch ((header & 0x000180000) >> 19) {
@@ -196,23 +186,5 @@ public class Mp3Reader
         }
 
         return bitrateMapping[yPos][xPos];
-    }
-
-    /**
-     * https://phoxis.org/2010/05/08/synch-safe/
-     */
-    public int getSyncSafeInteger(int decode)
-    {
-        int a = decode & 0xFF;
-        int b = (decode >> 8) & 0xFF;
-        int c  = (decode >> 16) & 0xFF;
-        int d = (decode >> 24) & 0xFF;
-
-        int decoded = 0x0;
-        decoded = decoded | a;
-        decoded = decoded | (b << 7);
-        decoded = decoded | (c << 14);
-        decoded = decoded | (d << 21);
-        return decoded;
     }
 }
