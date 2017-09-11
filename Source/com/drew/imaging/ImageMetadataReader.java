@@ -174,6 +174,8 @@ public class ImageMetadataReader
                 return Mp4MetadataReader.readMetadata(inputStream);
             case Eps:
                 return EpsMetadataReader.readMetadata(inputStream);
+            case Id3:
+                return new Metadata();
             case Unknown:
                 throw new ImageProcessingException("File format could not be determined");
             case Riff:
