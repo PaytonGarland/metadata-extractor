@@ -26,6 +26,7 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.mov.QuickTimeAtomTypes;
 import com.drew.metadata.mov.QuickTimeMediaHandler;
 import com.drew.metadata.mov.atoms.Atom;
+import com.drew.metadata.mov.atoms.MediaHeaderAtom;
 import com.drew.metadata.mov.atoms.TimecodeInformationMediaAtom;
 import com.drew.metadata.mov.atoms.TimecodeSampleDescriptionAtom;
 
@@ -36,9 +37,9 @@ import java.io.IOException;
  */
 public class QuickTimeTimecodeHandler extends QuickTimeMediaHandler<QuickTimeTimecodeDirectory>
 {
-    public QuickTimeTimecodeHandler(Metadata metadata)
+    public QuickTimeTimecodeHandler(Metadata metadata, MediaHeaderAtom mediaHeaderAtom)
     {
-        super(metadata);
+        super(metadata, mediaHeaderAtom);
     }
 
     @NotNull

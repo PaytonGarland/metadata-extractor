@@ -27,6 +27,7 @@ import com.drew.lang.annotations.NotNull;
 import com.drew.lang.annotations.Nullable;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.mov.atoms.Atom;
+import com.drew.metadata.mov.atoms.MediaHeaderAtom;
 import com.drew.metadata.mov.media.QuickTimeMediaDirectory;
 
 import java.io.IOException;
@@ -41,17 +42,20 @@ import java.util.Date;
  */
 public abstract class QuickTimeMediaHandler<T extends QuickTimeDirectory> extends QuickTimeHandler<T>
 {
-    public QuickTimeMediaHandler(Metadata metadata)
+    protected MediaHeaderAtom mediaHeaderAtom;
+
+    public QuickTimeMediaHandler(Metadata metadata, MediaHeaderAtom mediaHeaderAtom)
     {
         super(metadata);
-        if (QuickTimeHandlerFactory.HANDLER_PARAM_CREATION_TIME != null && QuickTimeHandlerFactory.HANDLER_PARAM_MODIFICATION_TIME != null) {
+        this.mediaHeaderAtom = mediaHeaderAtom;
+        if (mediaHeaderAtom != null) {
             // Get creation/modification times
             Calendar calendar = Calendar.getInstance();
             calendar.set(1904, 0, 1, 0, 0, 0);      // January 1, 1904  -  Macintosh Time Epoch
             Date date = calendar.getTime();
             long macToUnixEpochOffset = date.getTime();
-            String creationTimeStamp = new Date(QuickTimeHandlerFactory.HANDLER_PARAM_CREATION_TIME * 1000 + macToUnixEpochOffset).toString();
-            String modificationTimeStamp = new Date(QuickTimeHandlerFactory.HANDLER_PARAM_MODIFICATION_TIME * 1000 + macToUnixEpochOffset).toString();
+            String creationTimeStamp = new Date(mediaHeaderAtom.getCreationTime() * 1000 + macToUnixEpochOffset).toString();
+            String modificationTimeStamp = new Date(mediaHeaderAtom.getModificationTime() * 1000 + macToUnixEpochOffset).toString();
             directory.setString(QuickTimeMediaDirectory.TAG_CREATION_TIME, creationTimeStamp);
             directory.setString(QuickTimeMediaDirectory.TAG_MODIFICATION_TIME, modificationTimeStamp);
         }

@@ -25,6 +25,7 @@ import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.mov.*;
 import com.drew.metadata.mov.atoms.Atom;
+import com.drew.metadata.mov.atoms.MediaHeaderAtom;
 import com.drew.metadata.mov.atoms.SoundInformationMediaHeaderAtom;
 import com.drew.metadata.mov.atoms.SoundSampleDescriptionAtom;
 
@@ -35,9 +36,9 @@ import java.io.IOException;
  */
 public class QuickTimeSoundHandler extends QuickTimeMediaHandler<QuickTimeSoundDirectory>
 {
-    public QuickTimeSoundHandler(Metadata metadata)
+    public QuickTimeSoundHandler(Metadata metadata, MediaHeaderAtom mediaHeaderAtom)
     {
-        super(metadata);
+        super(metadata, mediaHeaderAtom);
     }
 
     @NotNull
@@ -70,6 +71,6 @@ public class QuickTimeSoundHandler extends QuickTimeMediaHandler<QuickTimeSoundD
     @Override
     protected void processTimeToSample(@NotNull SequentialReader reader, @NotNull Atom atom) throws IOException
     {
-        directory.setDouble(QuickTimeSoundDirectory.TAG_AUDIO_SAMPLE_RATE, QuickTimeHandlerFactory.HANDLER_PARAM_TIME_SCALE);
+        directory.setDouble(QuickTimeSoundDirectory.TAG_AUDIO_SAMPLE_RATE, mediaHeaderAtom.getTimescale());
     }
 }

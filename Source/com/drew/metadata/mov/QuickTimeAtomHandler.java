@@ -28,6 +28,7 @@ import com.drew.lang.annotations.Nullable;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.mov.atoms.*;
 
+import javax.print.attribute.standard.Media;
 import java.io.IOException;
 
 /**
@@ -36,6 +37,7 @@ import java.io.IOException;
 public class QuickTimeAtomHandler extends QuickTimeHandler<QuickTimeDirectory>
 {
     private QuickTimeHandlerFactory handlerFactory = new QuickTimeHandlerFactory(this);
+    private MediaHeaderAtom mediaHeaderAtom;
 
     public QuickTimeAtomHandler(Metadata metadata)
     {
@@ -82,9 +84,12 @@ public class QuickTimeAtomHandler extends QuickTimeHandler<QuickTimeDirectory>
                 fileTypeCompatibilityAtom.addMetadata(directory);
             } else if (atom.type.equals(QuickTimeAtomTypes.ATOM_HANDLER)) {
                 HandlerReferenceAtom handlerReferenceAtom = new HandlerReferenceAtom(reader, atom);
+                if (mediaHeaderAtom != null) {
+                    return handlerFactory.getHandler(handlerReferenceAtom.getComponentType(), metadata, mediaHeaderAtom);
+                }
                 return handlerFactory.getHandler(handlerReferenceAtom.getComponentType(), metadata);
             } else if (atom.type.equals(QuickTimeAtomTypes.ATOM_MEDIA_HEADER)) {
-                MediaHeaderAtom mediaHeaderAtom = new MediaHeaderAtom(reader, atom);
+                this.mediaHeaderAtom = new MediaHeaderAtom(reader, atom);
             }
         } else {
             if (atom.type.equals(QuickTimeContainerTypes.ATOM_COMPRESSED_MOVIE)) {

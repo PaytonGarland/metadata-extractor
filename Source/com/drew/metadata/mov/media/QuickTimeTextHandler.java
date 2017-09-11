@@ -26,6 +26,7 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.mov.QuickTimeAtomTypes;
 import com.drew.metadata.mov.QuickTimeMediaHandler;
 import com.drew.metadata.mov.atoms.Atom;
+import com.drew.metadata.mov.atoms.MediaHeaderAtom;
 import com.drew.metadata.mov.atoms.TextSampleDescriptionAtom;
 
 import java.io.IOException;
@@ -35,9 +36,9 @@ import java.io.IOException;
  */
 public class QuickTimeTextHandler extends QuickTimeMediaHandler<QuickTimeTextDirectory>
 {
-    public QuickTimeTextHandler(Metadata metadata)
+    public QuickTimeTextHandler(Metadata metadata, MediaHeaderAtom mediaHeaderAtom)
     {
-        super(metadata);
+        super(metadata, mediaHeaderAtom);
     }
 
     @NotNull

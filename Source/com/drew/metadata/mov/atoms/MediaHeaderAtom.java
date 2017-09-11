@@ -49,11 +49,35 @@ public class MediaHeaderAtom extends FullAtom
         duration = reader.getUInt32();
         language = reader.getUInt16();
         quality = reader.getUInt16();
+    }
 
-        // TODO can't use static fields here as it breaks concurrency
-        QuickTimeHandlerFactory.HANDLER_PARAM_CREATION_TIME = creationTime;
-        QuickTimeHandlerFactory.HANDLER_PARAM_MODIFICATION_TIME = modificationTime;
-        QuickTimeHandlerFactory.HANDLER_PARAM_TIME_SCALE = timescale;
-        QuickTimeHandlerFactory.HANDLER_PARAM_DURATION = duration;
+    public long getCreationTime()
+    {
+        return creationTime;
+    }
+
+    public long getModificationTime()
+    {
+        return modificationTime;
+    }
+
+    public long getTimescale()
+    {
+        return timescale;
+    }
+
+    public long getDuration()
+    {
+        return duration;
+    }
+
+    public int getLanguage()
+    {
+        return language;
+    }
+
+    public int getQuality()
+    {
+        return quality;
     }
 }

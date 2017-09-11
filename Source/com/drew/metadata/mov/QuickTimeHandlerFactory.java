@@ -22,6 +22,7 @@ package com.drew.metadata.mov;
 
 import com.drew.imaging.quicktime.QuickTimeHandler;
 import com.drew.metadata.Metadata;
+import com.drew.metadata.mov.atoms.MediaHeaderAtom;
 import com.drew.metadata.mov.media.*;
 import com.drew.metadata.mov.metadata.QuickTimeDataHandler;
 import com.drew.metadata.mov.metadata.QuickTimeDirectoryHandler;
@@ -42,14 +43,27 @@ public class QuickTimeHandlerFactory
 
     private QuickTimeHandler caller;
 
-    public static Long HANDLER_PARAM_TIME_SCALE              = null;
-    public static Long HANDLER_PARAM_CREATION_TIME           = null;
-    public static Long HANDLER_PARAM_MODIFICATION_TIME       = null;
-    public static Long HANDLER_PARAM_DURATION                = null;
-
     public QuickTimeHandlerFactory(QuickTimeHandler caller)
     {
         this.caller = caller;
+    }
+
+    public QuickTimeHandler getHandler(String type, Metadata metadata, MediaHeaderAtom mediaHeaderAtom)
+    {
+        if (type.equals(HANDLER_SOUND_MEDIA)) {
+            return new QuickTimeSoundHandler(metadata, mediaHeaderAtom);
+        } else if (type.equals(HANDLER_VIDEO_MEDIA)) {
+            return new QuickTimeVideoHandler(metadata, mediaHeaderAtom);
+        } else if (type.equals(HANDLER_TIMECODE_MEDIA)) {
+            return new QuickTimeTimecodeHandler(metadata, mediaHeaderAtom);
+        } else if (type.equals(HANDLER_TEXT_MEDIA)) {
+            return new QuickTimeTextHandler(metadata, mediaHeaderAtom);
+        } else if (type.equals(HANDLER_SUBTITLE_MEDIA)) {
+            return new QuickTimeSubtitleHandler(metadata, mediaHeaderAtom);
+        } else if (type.equals(HANDLER_MUSIC_MEDIA)) {
+            return new QuickTimeMusicHandler(metadata, mediaHeaderAtom);
+        }
+        return caller;
     }
 
     public QuickTimeHandler getHandler(String type, Metadata metadata)
@@ -58,18 +72,6 @@ public class QuickTimeHandlerFactory
             return new QuickTimeDirectoryHandler(metadata);
         } else if (type.equals(HANDLER_METADATA_DATA)) {
             return new QuickTimeDataHandler(metadata);
-        } else if (type.equals(HANDLER_SOUND_MEDIA)) {
-            return new QuickTimeSoundHandler(metadata);
-        } else if (type.equals(HANDLER_VIDEO_MEDIA)) {
-            return new QuickTimeVideoHandler(metadata);
-        } else if (type.equals(HANDLER_TIMECODE_MEDIA)) {
-            return new QuickTimeTimecodeHandler(metadata);
-        } else if (type.equals(HANDLER_TEXT_MEDIA)) {
-            return new QuickTimeTextHandler(metadata);
-        } else if (type.equals(HANDLER_SUBTITLE_MEDIA)) {
-            return new QuickTimeSubtitleHandler(metadata);
-        } else if (type.equals(HANDLER_MUSIC_MEDIA)) {
-            return new QuickTimeMusicHandler(metadata);
         }
         return caller;
     }

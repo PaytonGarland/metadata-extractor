@@ -25,6 +25,7 @@ import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.mov.QuickTimeMediaHandler;
 import com.drew.metadata.mov.atoms.Atom;
+import com.drew.metadata.mov.atoms.MediaHeaderAtom;
 import com.drew.metadata.mov.atoms.MusicSampleDescriptionAtom;
 
 import java.io.IOException;
@@ -34,9 +35,9 @@ import java.io.IOException;
  */
 public class QuickTimeMusicHandler extends QuickTimeMediaHandler<QuickTimeMusicDirectory>
 {
-    public QuickTimeMusicHandler(Metadata metadata)
+    public QuickTimeMusicHandler(Metadata metadata, MediaHeaderAtom mediaHeaderAtom)
     {
-        super(metadata);
+        super(metadata, mediaHeaderAtom);
     }
 
     @NotNull
