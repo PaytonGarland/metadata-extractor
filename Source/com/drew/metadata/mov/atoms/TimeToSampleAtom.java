@@ -21,6 +21,8 @@
 package com.drew.metadata.mov.atoms;
 
 import com.drew.lang.SequentialReader;
+import com.drew.metadata.MetadataException;
+import com.drew.metadata.mov.QuickTimeDirectory;
 import com.drew.metadata.mov.QuickTimeHandlerFactory;
 import com.drew.metadata.mov.media.QuickTimeVideoDirectory;
 
@@ -64,9 +66,13 @@ public class TimeToSampleAtom extends FullAtom
         }
     }
 
-    public void addMetadata(QuickTimeVideoDirectory directory)
+    public void addMetadata(QuickTimeVideoDirectory directory, QuickTimeDirectory parent)
     {
-        float frameRate = (float) QuickTimeHandlerFactory.HANDLER_PARAM_TIME_SCALE/(float)sampleDuration;
-        directory.setFloat(QuickTimeVideoDirectory.TAG_FRAME_RATE, frameRate);
+        try {
+            float frameRate = parent.getFloat(QuickTimeDirectory.TAG_MEDIA_TIMESCALE) / (float) sampleDuration;
+            directory.setFloat(QuickTimeVideoDirectory.TAG_FRAME_RATE, frameRate);
+        } catch (MetadataException e) {
+            directory.addError("Media timescale not found in parent directory");
+        }
     }
 }

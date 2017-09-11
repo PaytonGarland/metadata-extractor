@@ -51,10 +51,24 @@ public class QuickTimeDirectory extends Directory {
     public static final int TAG_MINOR_VERSION                           = 0x1001;
     public static final int TAG_COMPATIBLE_BRANDS                       = 0x1002;
 
+    public static final int TAG_MEDIA_CREATION_TIME                     = 0x2000;
+    public static final int TAG_MEDIA_MODIFICATION_TIME                 = 0x2001;
+    public static final int TAG_MEDIA_TIMESCALE                         = 0x2002;
+    public static final int TAG_MEDIA_DURATION                          = 0x2003;
+    public static final int TAG_MEDIA_LANGUAGE                          = 0x2004;
+    public static final int TAG_MEDIA_QUALITY                           = 0x2005;
+
     @NotNull
     protected static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
 
     static {
+        _tagNameMap.put(TAG_MEDIA_CREATION_TIME, "Media Creation Time");
+        _tagNameMap.put(TAG_MEDIA_MODIFICATION_TIME, "Media Modification Time");
+        _tagNameMap.put(TAG_MEDIA_TIMESCALE, "Media Timescale");
+        _tagNameMap.put(TAG_MEDIA_DURATION, "Media Duration");
+        _tagNameMap.put(TAG_MEDIA_LANGUAGE, "Media Language");
+        _tagNameMap.put(TAG_MEDIA_QUALITY, "Media Quality");
+
         _tagNameMap.put(TAG_MAJOR_BRAND, "Major Brand");
         _tagNameMap.put(TAG_MINOR_VERSION, "Minor Version");
         _tagNameMap.put(TAG_COMPATIBLE_BRANDS, "Compatible Brands");

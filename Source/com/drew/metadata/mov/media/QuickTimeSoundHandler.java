@@ -23,6 +23,7 @@ package com.drew.metadata.mov.media;
 import com.drew.lang.SequentialReader;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
+import com.drew.metadata.MetadataException;
 import com.drew.metadata.mov.*;
 import com.drew.metadata.mov.atoms.Atom;
 import com.drew.metadata.mov.atoms.SoundInformationMediaHeaderAtom;
@@ -70,6 +71,10 @@ public class QuickTimeSoundHandler extends QuickTimeMediaHandler<QuickTimeSoundD
     @Override
     protected void processTimeToSample(@NotNull SequentialReader reader, @NotNull Atom atom) throws IOException
     {
-        directory.setDouble(QuickTimeSoundDirectory.TAG_AUDIO_SAMPLE_RATE, QuickTimeHandlerFactory.HANDLER_PARAM_TIME_SCALE);
+        try {
+            directory.setDouble(QuickTimeSoundDirectory.TAG_AUDIO_SAMPLE_RATE, metadata.getFirstDirectoryOfType(QuickTimeDirectory.class).getDouble(QuickTimeDirectory.TAG_MEDIA_TIMESCALE));
+        } catch (MetadataException e) {
+            directory.addError("Media timescale not found in parent directory");
+        }
     }
 }

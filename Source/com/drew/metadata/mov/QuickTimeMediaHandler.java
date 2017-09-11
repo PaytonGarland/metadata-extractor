@@ -44,17 +44,24 @@ public abstract class QuickTimeMediaHandler<T extends QuickTimeDirectory> extend
     public QuickTimeMediaHandler(Metadata metadata)
     {
         super(metadata);
-        if (QuickTimeHandlerFactory.HANDLER_PARAM_CREATION_TIME != null && QuickTimeHandlerFactory.HANDLER_PARAM_MODIFICATION_TIME != null) {
-            // Get creation/modification times
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(1904, 0, 1, 0, 0, 0);      // January 1, 1904  -  Macintosh Time Epoch
-            Date date = calendar.getTime();
-            long macToUnixEpochOffset = date.getTime();
-            String creationTimeStamp = new Date(QuickTimeHandlerFactory.HANDLER_PARAM_CREATION_TIME * 1000 + macToUnixEpochOffset).toString();
-            String modificationTimeStamp = new Date(QuickTimeHandlerFactory.HANDLER_PARAM_MODIFICATION_TIME * 1000 + macToUnixEpochOffset).toString();
-            directory.setString(QuickTimeMediaDirectory.TAG_CREATION_TIME, creationTimeStamp);
-            directory.setString(QuickTimeMediaDirectory.TAG_MODIFICATION_TIME, modificationTimeStamp);
-        }
+//        if (QuickTimeHandlerFactory.HANDLER_PARAM_CREATION_TIME != null && QuickTimeHandlerFactory.HANDLER_PARAM_MODIFICATION_TIME != null) {
+//            // Get creation/modification times
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.set(1904, 0, 1, 0, 0, 0);      // January 1, 1904  -  Macintosh Time Epoch
+//            Date date = calendar.getTime();
+//            long macToUnixEpochOffset = date.getTime();
+//            String creationTimeStamp = new Date(QuickTimeHandlerFactory.HANDLER_PARAM_CREATION_TIME * 1000 + macToUnixEpochOffset).toString();
+//            String modificationTimeStamp = new Date(QuickTimeHandlerFactory.HANDLER_PARAM_MODIFICATION_TIME * 1000 + macToUnixEpochOffset).toString();
+//            directory.setString(QuickTimeMediaDirectory.TAG_CREATION_TIME, creationTimeStamp);
+//            directory.setString(QuickTimeMediaDirectory.TAG_MODIFICATION_TIME, modificationTimeStamp);
+//        }
+        QuickTimeDirectory parent = metadata.getFirstDirectoryOfType(QuickTimeDirectory.class);
+        if (parent.containsTag(QuickTimeDirectory.TAG_MEDIA_CREATION_TIME))
+            directory.setLong(QuickTimeMediaDirectory.TAG_CREATION_TIME, parent.getLongObject(QuickTimeDirectory.TAG_MEDIA_CREATION_TIME));
+        if (parent.containsTag(QuickTimeDirectory.TAG_MEDIA_MODIFICATION_TIME))
+            directory.setLong(QuickTimeMediaDirectory.TAG_MODIFICATION_TIME, parent.getLongObject(QuickTimeDirectory.TAG_MEDIA_MODIFICATION_TIME));
+
+
     }
 
     @Override
