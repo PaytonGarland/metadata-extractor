@@ -231,6 +231,12 @@ public class ExifTiffHandler extends DirectoryTiffHandler
             return true;
         }
 
+        // Custom processing for DNG data
+        if (tagId == DNGDirectory.TAG_DNG_VERSION && _currentDirectory instanceof ExifIFD0Directory) {
+            pushDirectory(DNGDirectory.class);
+            return false;
+        }
+
         // Note: these also appear in tryEnterSubIfd because some are IFD pointers while others begin immediately
         // for the same directories
         if(_currentDirectory instanceof OlympusMakernoteDirectory)
