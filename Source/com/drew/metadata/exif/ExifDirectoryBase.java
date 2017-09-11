@@ -22,7 +22,6 @@
 package com.drew.metadata.exif;
 
 import com.drew.metadata.Directory;
-import sun.security.provider.PolicySpiFile;
 
 import java.util.HashMap;
 
@@ -592,7 +591,6 @@ public abstract class ExifDirectoryBase extends Directory
     public static final int TAG_GAMMA                             = 0xA500;
 
     public static final int TAG_PRINT_IMAGE_MATCHING_INFO         = 0xC4A5;
-
     public static final int TAG_PANASONIC_TITLE                   = 0xC6D2;
     public static final int TAG_PANASONIC_TITLE_2                 = 0xC6D3;
 
