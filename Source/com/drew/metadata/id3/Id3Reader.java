@@ -5,6 +5,7 @@ import com.drew.lang.RandomAccessStreamReader;
 import com.drew.lang.SequentialReader;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
+import com.drew.metadata.mp3.Mp3Reader;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -19,14 +20,17 @@ public class Id3Reader
 
             byte[] identifier = reader.getBytes(3);
             if (!Arrays.equals("ID3".getBytes(), identifier)) {
-                throw new ImageProcessingException("ID3 block not found. Format not supported.");
+                throw new ImageProcessingException("ID3 container not found. Format not supported.");
             }
 
             double version = reader.getByte() + (reader.getByte() / 10);
             int flags = reader.getByte();
             int size = reader.getInt32();
+            size = getSyncSafeSize(size);
 
             reader.skip(size);
+
+            new Mp3Reader().extract(reader, metadata);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,5 +103,23 @@ public class Id3Reader
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * https://phoxis.org/2010/05/08/synch-safe/
+     */
+    public static int getSyncSafeSize(int decode)
+    {
+        int a = decode & 0xFF;
+        int b = (decode >> 8) & 0xFF;
+        int c  = (decode >> 16) & 0xFF;
+        int d = (decode >> 24) & 0xFF;
+
+        int decoded = 0x0;
+        decoded = decoded | a;
+        decoded = decoded | (b << 7);
+        decoded = decoded | (c << 14);
+        decoded = decoded | (d << 21);
+        return decoded;
     }
 }

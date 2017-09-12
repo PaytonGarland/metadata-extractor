@@ -48,7 +48,7 @@ public enum FileType
     Mp4("MP4", "MPEG-4 Part 14", "video/mp4", "mp4", "m4a", "m4p", "m4b", "m4r", "m4v"),
     Heif("HEIF", "High Efficiency Image File Format", "image/heif", "heif", "heic"),
     Eps("EPS", "Encapsulated PostScript", "application/postscript", "eps", "epsf", "epsi"),
-    Id3("ID3", "ID3", null, null),
+    Id3("ID3", "ID3", "not a mime type", "not an extension"),
 
     /** Sony camera raw. */
     Arw("ARW", "Sony Camera Raw", null, "arw"),
