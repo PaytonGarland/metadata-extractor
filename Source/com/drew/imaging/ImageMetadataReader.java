@@ -25,6 +25,7 @@ import com.drew.imaging.bmp.BmpMetadataReader;
 import com.drew.imaging.eps.EpsMetadataReader;
 import com.drew.imaging.gif.GifMetadataReader;
 import com.drew.imaging.ico.IcoMetadataReader;
+import com.drew.imaging.id3.Id3MetadataReader;
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.mp4.Mp4MetadataReader;
 import com.drew.imaging.quicktime.QuickTimeMetadataReader;
@@ -175,7 +176,7 @@ public class ImageMetadataReader
             case Eps:
                 return EpsMetadataReader.readMetadata(inputStream);
             case Id3:
-                return new Metadata();
+                return Id3MetadataReader.readMetadata(inputStream);
             case Unknown:
                 throw new ImageProcessingException("File format could not be determined");
             case Riff:
