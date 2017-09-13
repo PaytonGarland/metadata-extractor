@@ -1,40 +1,60 @@
 package com.drew.metadata.id3;
 
+import com.drew.imaging.FileType;
+import com.drew.imaging.FileTypeDetector;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.lang.RandomAccessStreamReader;
 import com.drew.lang.SequentialReader;
+import com.drew.lang.StreamReader;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.mp3.Mp3Reader;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 public class Id3Reader
 {
-    public void extract(@NotNull SequentialReader reader, @NotNull final Metadata metadata)
+    public void extract(@NotNull InputStream inputStream, @NotNull final Metadata metadata)
     {
         try {
             Id3Directory directory = new Id3Directory();
             metadata.addDirectory(directory);
 
-            byte[] identifier = reader.getBytes(3);
-            if (!Arrays.equals("ID3".getBytes(), identifier)) {
-                throw new ImageProcessingException("ID3 container not found. Format not supported.");
+            BufferedInputStream stream = inputStream instanceof BufferedInputStream
+                ? (BufferedInputStream)inputStream
+                : new BufferedInputStream(inputStream);
+
+            FileType fileType = FileTypeDetector.detectFileType(stream);
+            SequentialReader reader = new StreamReader(stream);
+
+            while (fileType == FileType.Id3) {
+                reader.skip(3);
+
+                double version = reader.getByte() + (reader.getByte() / 10);
+                int flags = reader.getByte();
+                int size = reader.getInt32();
+                size = getSyncSafeSize(size);
+
+                reader.skip(size);
+
+                // Skip footer if present
+                if ((flags & 0x10) == 1) {
+                    reader.skip(10);
+                }
+
+                fileType = FileTypeDetector.detectFileType(stream);
             }
 
-            double version = reader.getByte() + (reader.getByte() / 10);
-            int flags = reader.getByte();
-            int size = reader.getInt32();
-            size = getSyncSafeSize(size);
-
-            reader.skip(size);
-
-            new Mp3Reader().extract(reader, metadata);
+            if (fileType == FileType.Mp3) {
+                new Mp3Reader().extract(reader, metadata);
+            } else {
+                System.out.println("Mp3 file not found: " + reader.getPosition());
+            }
 
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ImageProcessingException e) {
             e.printStackTrace();
         }
     }

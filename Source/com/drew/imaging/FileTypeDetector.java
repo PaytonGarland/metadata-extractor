@@ -74,6 +74,7 @@ public class FileTypeDetector
         _root.addPath(FileType.Eps, "%!PS".getBytes());
         _root.addPath(FileType.Eps, new byte[]{(byte)0xC5, (byte)0xD0, (byte)0xD3, (byte)0xC6});
         _root.addPath(FileType.Id3, "ID3".getBytes());
+        _root.addPath(FileType.Mp3, new byte[]{(byte)0xFF, (byte)0xFB});
 
         _ftypMap = new HashMap<String, FileType>();
 

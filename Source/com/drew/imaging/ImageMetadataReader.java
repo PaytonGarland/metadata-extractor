@@ -175,6 +175,7 @@ public class ImageMetadataReader
                 return Mp4MetadataReader.readMetadata(inputStream);
             case Eps:
                 return EpsMetadataReader.readMetadata(inputStream);
+            case Mp3:
             case Id3:
                 return Id3MetadataReader.readMetadata(inputStream);
             case Unknown:

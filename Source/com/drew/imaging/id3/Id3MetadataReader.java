@@ -37,7 +37,7 @@ public class Id3MetadataReader
     public static Metadata readMetadata(@NotNull InputStream inputStream)
     {
         Metadata metadata = new Metadata();
-        new Id3Reader().extract(new StreamReader(inputStream), metadata);
+        new Id3Reader().extract(inputStream, metadata);
         return metadata;
     }
 }

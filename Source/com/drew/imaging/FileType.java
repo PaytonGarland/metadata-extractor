@@ -49,6 +49,7 @@ public enum FileType
     Heif("HEIF", "High Efficiency Image File Format", "image/heif", "heif", "heic"),
     Eps("EPS", "Encapsulated PostScript", "application/postscript", "eps", "epsf", "epsi"),
     Id3("ID3", "ID3", "not a mime type", "not an extension"),
+    Mp3("MP3", "Mpeg-1 Audio Layer-3", "audio/mpeg", "mp3"),
 
     /** Sony camera raw. */
     Arw("ARW", "Sony Camera Raw", null, "arw"),
