@@ -20,6 +20,7 @@
  */
 package com.drew.imaging.webp;
 
+import com.drew.imaging.FileType;
 import com.drew.imaging.riff.RiffProcessingException;
 import com.drew.imaging.riff.RiffReader;
 import com.drew.lang.StreamReader;
@@ -55,6 +56,7 @@ public class WebpMetadataReader
     public static Metadata readMetadata(@NotNull InputStream inputStream) throws IOException, RiffProcessingException
     {
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.WebP);
         new RiffReader().processRiff(new StreamReader(inputStream), new WebpRiffHandler(metadata));
         return metadata;
     }

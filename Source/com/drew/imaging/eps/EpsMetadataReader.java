@@ -1,5 +1,6 @@
 package com.drew.imaging.eps;
 
+import com.drew.imaging.FileType;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.eps.EpsReader;
@@ -31,6 +32,7 @@ public class EpsMetadataReader {
     public static Metadata readMetadata(@NotNull InputStream inputStream) throws IOException
     {
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.Eps);
         new EpsReader().extract(inputStream, metadata);
         return metadata;
     }

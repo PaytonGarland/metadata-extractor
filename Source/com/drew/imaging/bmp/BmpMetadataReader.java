@@ -21,6 +21,7 @@
 
 package com.drew.imaging.bmp;
 
+import com.drew.imaging.FileType;
 import com.drew.lang.StreamReader;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
@@ -54,6 +55,7 @@ public class BmpMetadataReader
     public static Metadata readMetadata(@NotNull InputStream inputStream)
     {
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.Bmp);
         new BmpReader().extract(new StreamReader(inputStream), metadata);
         return metadata;
     }

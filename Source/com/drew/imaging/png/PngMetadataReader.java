@@ -20,6 +20,7 @@
  */
 package com.drew.imaging.png;
 
+import com.drew.imaging.FileType;
 import com.drew.lang.*;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
@@ -97,6 +98,7 @@ public class PngMetadataReader
         Iterable<PngChunk> chunks = new PngChunkReader().extract(new StreamReader(inputStream), _desiredChunkTypes);
 
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.Png);
 
         for (PngChunk chunk : chunks) {
             try {

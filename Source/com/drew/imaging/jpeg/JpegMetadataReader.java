@@ -20,6 +20,7 @@
  */
 package com.drew.imaging.jpeg;
 
+import com.drew.imaging.FileType;
 import com.drew.lang.StreamReader;
 import com.drew.lang.annotations.NotNull;
 import com.drew.lang.annotations.Nullable;
@@ -74,6 +75,7 @@ public class JpegMetadataReader
     public static Metadata readMetadata(@NotNull InputStream inputStream, @Nullable Iterable<JpegSegmentMetadataReader> readers) throws JpegProcessingException, IOException
     {
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.Jpeg);
         process(metadata, inputStream, readers);
         return metadata;
     }

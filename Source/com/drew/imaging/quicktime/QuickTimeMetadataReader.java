@@ -20,6 +20,7 @@
  */
 package com.drew.imaging.quicktime;
 
+import com.drew.imaging.FileType;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
@@ -51,6 +52,7 @@ public class QuickTimeMetadataReader
     public static Metadata readMetadata(@NotNull InputStream inputStream)
     {
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.Mov);
         QuickTimeReader.extract(inputStream, new QuickTimeAtomHandler(metadata));
         return metadata;
     }

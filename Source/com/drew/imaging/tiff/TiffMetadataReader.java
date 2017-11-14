@@ -20,6 +20,7 @@
  */
 package com.drew.imaging.tiff;
 
+import com.drew.imaging.FileType;
 import com.drew.lang.RandomAccessFileReader;
 import com.drew.lang.RandomAccessReader;
 import com.drew.lang.RandomAccessStreamReader;
@@ -67,6 +68,7 @@ public class TiffMetadataReader
     public static Metadata readMetadata(@NotNull RandomAccessReader reader) throws IOException, TiffProcessingException
     {
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.Tiff);
         ExifTiffHandler handler = new ExifTiffHandler(metadata, null);
         new TiffReader().processTiff(reader, handler, 0);
         return metadata;

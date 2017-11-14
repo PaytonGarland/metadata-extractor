@@ -20,6 +20,7 @@
  */
 package com.drew.imaging.mp4;
 
+import com.drew.imaging.FileType;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
@@ -54,6 +55,7 @@ public class Mp4MetadataReader
     public static Metadata readMetadata(@NotNull InputStream inputStream) throws IOException
     {
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.Mp4);
         Mp4Reader.extract(inputStream, new Mp4BoxHandler(metadata));
         return metadata;
     }

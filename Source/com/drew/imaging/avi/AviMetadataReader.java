@@ -20,6 +20,7 @@
  */
 package com.drew.imaging.avi;
 
+import com.drew.imaging.FileType;
 import com.drew.imaging.riff.RiffProcessingException;
 import com.drew.imaging.riff.RiffReader;
 import com.drew.lang.StreamReader;
@@ -58,6 +59,7 @@ public class AviMetadataReader
     public static Metadata readMetadata(@NotNull InputStream inputStream) throws IOException, RiffProcessingException
     {
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.Avi);
         new RiffReader().processRiff(new StreamReader(inputStream), new AviRiffHandler(metadata));
         return metadata;
     }

@@ -20,6 +20,7 @@
  */
 package com.drew.imaging.raf;
 
+import com.drew.imaging.FileType;
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.lang.annotations.NotNull;
@@ -79,7 +80,9 @@ public class RafMetadataReader
             }
         }
 
-        return JpegMetadataReader.readMetadata(inputStream);
+        Metadata metadata = JpegMetadataReader.readMetadata(inputStream);
+        metadata.setFileType(FileType.Raf);
+        return metadata;
     }
 
     private RafMetadataReader() throws Exception

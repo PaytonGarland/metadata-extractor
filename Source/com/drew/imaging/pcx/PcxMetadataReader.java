@@ -20,6 +20,7 @@
  */
 package com.drew.imaging.pcx;
 
+import com.drew.imaging.FileType;
 import com.drew.lang.StreamReader;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
@@ -53,6 +54,7 @@ public class PcxMetadataReader
     public static Metadata readMetadata(@NotNull InputStream inputStream)
     {
         Metadata metadata = new Metadata();
+        metadata.setFileType(FileType.Pcx);
         new PcxReader().extract(new StreamReader(inputStream), metadata);
         return metadata;
     }
