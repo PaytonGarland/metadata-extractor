@@ -20,6 +20,7 @@
  */
 package com.drew.metadata.exif;
 
+import com.drew.imaging.FileType;
 import com.drew.imaging.tiff.TiffProcessingException;
 import com.drew.imaging.tiff.TiffReader;
 import com.drew.imaging.jpeg.JpegMetadataReader;
@@ -68,11 +69,16 @@ public class ExifTiffHandler extends DirectoryTiffHandler
         switch (marker)
         {
             case standardTiffMarker:
+                _metadata.setFileType(FileType.Tiff);
+                pushDirectory(ExifIFD0Directory.class);
+                break;
             case olympusRawTiffMarker:      // TODO implement an IFD0, if there is one
             case olympusRawTiffMarker2:     // TODO implement an IFD0, if there is one
+                _metadata.setFileType(FileType.Orf);
                 pushDirectory(ExifIFD0Directory.class);
                 break;
             case panasonicRawTiffMarker:
+                _metadata.setFileType(FileType.Rw2);
                 pushDirectory(PanasonicRawIFD0Directory.class);
                 break;
             default:

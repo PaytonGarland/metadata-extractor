@@ -43,8 +43,8 @@ public class FileTypeDetector
         // https://en.wikipedia.org/wiki/List_of_file_signatures
 
         _root.addPath(FileType.Jpeg, new byte[]{(byte)0xff, (byte)0xd8});
-        _root.addPath(FileType.Tiff, "II".getBytes(), new byte[]{0x2a, 0x00});
-        _root.addPath(FileType.Tiff, "MM".getBytes(), new byte[]{0x00, 0x2a});
+        _root.addPath(FileType.Tiff, "II".getBytes());
+        _root.addPath(FileType.Tiff, "MM".getBytes());
         _root.addPath(FileType.Psd, "8BPS".getBytes());
         _root.addPath(FileType.Png, new byte[]{(byte)0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52});
         _root.addPath(FileType.Bmp, "BM".getBytes()); // Standard Bitmap Windows and OS/2
@@ -61,16 +61,16 @@ public class FileTypeDetector
         _root.addPath(FileType.Pcx, new byte[]{0x0A, 0x03, 0x01});
         _root.addPath(FileType.Pcx, new byte[]{0x0A, 0x05, 0x01});
         _root.addPath(FileType.Riff, "RIFF".getBytes());
-        _root.addPath(FileType.Arw, "II".getBytes(), new byte[]{0x2a, 0x00, 0x08, 0x00});
-        _root.addPath(FileType.Crw, "II".getBytes(), new byte[]{0x1a, 0x00, 0x00, 0x00}, "HEAPCCDR".getBytes());
-        _root.addPath(FileType.Cr2, "II".getBytes(), new byte[]{0x2a, 0x00, 0x10, 0x00, 0x00, 0x00, 0x43, 0x52});
+//        _root.addPath(FileType.Arw, "II".getBytes(), new byte[]{0x2a, 0x00, 0x08, 0x00});
+//        _root.addPath(FileType.Crw, "II".getBytes(), new byte[]{0x1a, 0x00, 0x00, 0x00}, "HEAPCCDR".getBytes());
+//        _root.addPath(FileType.Cr2, "II".getBytes(), new byte[]{0x2a, 0x00, 0x10, 0x00, 0x00, 0x00, 0x43, 0x52});
         // NOTE this doesn't work for NEF as it incorrectly flags many other TIFF files as being NEF
 //        _root.addPath(FileType.Nef, "MM".getBytes(), new byte[]{0x00, 0x2a, 0x00, 0x00, 0x00, (byte)0x08, 0x00});
-        _root.addPath(FileType.Orf, "IIRO".getBytes(), new byte[]{(byte)0x08, 0x00});
-        _root.addPath(FileType.Orf, "MMOR".getBytes(), new byte[]{(byte)0x00, 0x00});
-        _root.addPath(FileType.Orf, "IIRS".getBytes(), new byte[]{(byte)0x08, 0x00});
+//        _root.addPath(FileType.Orf, "IIRO".getBytes(), new byte[]{(byte)0x08, 0x00});
+//        _root.addPath(FileType.Orf, "MMOR".getBytes(), new byte[]{(byte)0x00, 0x00});
+//        _root.addPath(FileType.Orf, "IIRS".getBytes(), new byte[]{(byte)0x08, 0x00});
         _root.addPath(FileType.Raf, "FUJIFILMCCD-RAW".getBytes());
-        _root.addPath(FileType.Rw2, "II".getBytes(), new byte[]{0x55, 0x00});
+//        _root.addPath(FileType.Rw2, "II".getBytes(), new byte[]{0x55, 0x00});
         _root.addPath(FileType.Eps, "%!PS".getBytes());
         _root.addPath(FileType.Eps, new byte[]{(byte)0xC5, (byte)0xD0, (byte)0xD3, (byte)0xC6});
 

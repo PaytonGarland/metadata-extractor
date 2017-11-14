@@ -120,7 +120,7 @@ public class ImageMetadataReader
 
         Metadata metadata = readMetadata(bufferedInputStream, streamLength, fileType);
 
-        metadata.addDirectory(new FileTypeDirectory(fileType));
+        metadata.addDirectory(new FileTypeDirectory(metadata.getFileType()));
 
         return metadata;
     }
