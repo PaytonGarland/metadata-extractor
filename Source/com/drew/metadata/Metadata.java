@@ -20,6 +20,7 @@
  */
 package com.drew.metadata;
 
+import com.drew.imaging.FileType;
 import com.drew.lang.annotations.NotNull;
 import com.drew.lang.annotations.Nullable;
 
@@ -36,10 +37,38 @@ import java.util.*;
 public final class Metadata
 {
     /**
+     * The type of file this metadata was extracted from.
+     */
+    @NotNull
+    private FileType fileType = FileType.Unknown;
+
+    /**
      * The list of {@link Directory} instances in this container, in the order they were added.
      */
     @NotNull
     private final List<Directory> _directories = new ArrayList<Directory>();
+
+    /**
+     * Returns the currently identified {@link FileType} that this metadata was extracted from.
+     *
+     * @return the type of file this metadata originates from
+     */
+    @NotNull
+    public FileType getFileType()
+    {
+        return this.fileType;
+    }
+
+    /**
+     * Overwrites the currently identified file type that this metadata was extracted from.
+     *
+     * @param fileType the {@link FileType} this metadata is from
+     */
+    @NotNull
+    public void setFileType(@NotNull FileType fileType)
+    {
+        this.fileType = fileType;
+    }
 
     /**
      * Returns an iterable set of the {@link Directory} instances contained in this metadata collection.
