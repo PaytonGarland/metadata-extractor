@@ -102,6 +102,8 @@ public class QuickTimeDataHandler extends QuickTimeMetadataHandler
         // 4 bytes: locale indicator
         reader.skip(8);
         String value = new String(reader.getBytes(payload.length - 8));
-        directory.setString(QuickTimeMetadataDirectory._tagIntegerMap.get(keys.get(currentIndex)), value);
+        if (QuickTimeMetadataDirectory._tagIntegerMap.containsKey(keys.get(currentIndex))) {
+            directory.setString(QuickTimeMetadataDirectory._tagIntegerMap.get(keys.get(currentIndex)), value);
+        }
     }
 }
