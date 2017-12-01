@@ -209,6 +209,8 @@ public abstract class ExifDescriptorBase<T extends Directory> extends TagDescrip
                 return getJpegProcDescription();
             case TAG_LENS_SPECIFICATION:
                 return getLensSpecificationDescription();
+            case TAG_EXTRA_SAMPLES:
+                return getExtraSamplesDescription();
             default:
                 return super.getDescription(tagType);
         }
@@ -1227,6 +1229,21 @@ public abstract class ExifDescriptorBase<T extends Directory> extends TagDescrip
         switch (value) {
             case 1: return "Baseline";
             case 14: return "Lossless";
+            default:
+                return "Unknown (" + value + ")";
+        }
+    }
+
+    @Nullable
+    public String getExtraSamplesDescription()
+    {
+        Integer value = _directory.getInteger(TAG_EXTRA_SAMPLES);
+        if (value == null)
+            return null;
+        switch (value) {
+            case 0: return "Unspecified";
+            case 1: return "Associated Alpha";
+            case 2: return "Unassociated Alpha";
             default:
                 return "Unknown (" + value + ")";
         }

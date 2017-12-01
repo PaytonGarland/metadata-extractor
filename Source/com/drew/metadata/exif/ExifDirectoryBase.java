@@ -137,6 +137,7 @@ public abstract class ExifDirectoryBase extends Directory
     public static final int TAG_WHITE_POINT                       = 0x013E;
     public static final int TAG_PRIMARY_CHROMATICITIES            = 0x013F;
 
+    public static final int TAG_COLOR_MAP                         = 0x0140;
     public static final int TAG_TILE_WIDTH                        = 0x0142;
     public static final int TAG_TILE_LENGTH                       = 0x0143;
     public static final int TAG_TILE_OFFSETS                      = 0x0144;
@@ -148,6 +149,7 @@ public abstract class ExifDirectoryBase extends Directory
      */
     public static final int TAG_SUB_IFD_OFFSET                    = 0x014a;
 
+    public static final int TAG_EXTRA_SAMPLES                     = 0x0152;
     public static final int TAG_TRANSFER_RANGE                    = 0x0156;
     public static final int TAG_JPEG_TABLES                       = 0x015B;
     public static final int TAG_JPEG_PROC                         = 0x0200;
@@ -637,11 +639,13 @@ public abstract class ExifDirectoryBase extends Directory
         map.put(TAG_HOST_COMPUTER, "Host Computer");
         map.put(TAG_WHITE_POINT, "White Point");
         map.put(TAG_PRIMARY_CHROMATICITIES, "Primary Chromaticities");
+        map.put(TAG_COLOR_MAP, "Color Map");
         map.put(TAG_TILE_WIDTH, "Tile Width");
         map.put(TAG_TILE_LENGTH, "Tile Length");
         map.put(TAG_TILE_OFFSETS, "Tile Offsets");
         map.put(TAG_TILE_BYTE_COUNTS, "Tile Byte Counts");
         map.put(TAG_SUB_IFD_OFFSET, "Sub IFD Pointer(s)");
+        map.put(TAG_EXTRA_SAMPLES, "Extra Samples");
         map.put(TAG_TRANSFER_RANGE, "Transfer Range");
         map.put(TAG_JPEG_TABLES, "JPEG Tables");
         map.put(TAG_JPEG_PROC, "JPEG Proc");
