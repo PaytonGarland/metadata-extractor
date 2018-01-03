@@ -26,7 +26,7 @@ import com.drew.metadata.mp4.Mp4HandlerFactory;
 import java.io.IOException;
 
 /**
- * ISO/IED 14496-12:2015 pg.29
+ * ISO/IEC 14496-12:2015 pg.29
  */
 public class MediaHeaderBox extends FullBox
 {

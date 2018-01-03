@@ -26,18 +26,17 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 /**
- * ISO/IED 14496-12:2015 pg.30
+ * ISO/IEC 14496-12:2015 pg.29-30
  */
 public class HandlerBox extends FullBox
 {
     String handlerType;
+    String name;
 
     public String getHandlerType()
     {
         return handlerType;
     }
-
-    String name;
 
     public HandlerBox(SequentialReader reader, Box box) throws IOException
     {

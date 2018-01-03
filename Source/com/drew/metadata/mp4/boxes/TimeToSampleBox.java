@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * ISO/IED 14496-12:2015 pg.37
+ * ISO/IEC 14496-12:2015 pg.37-38
  */
 public class TimeToSampleBox extends FullBox
 {

@@ -26,7 +26,7 @@ import com.drew.metadata.mp4.media.Mp4SoundDirectory;
 import java.io.IOException;
 
 /**
- * ISO/IED 14496-12:2015 pg.161
+ * ISO/IEC 14496-12:2015 pg.160-161
  */
 public class AudioSampleEntry extends SampleEntry
 {
