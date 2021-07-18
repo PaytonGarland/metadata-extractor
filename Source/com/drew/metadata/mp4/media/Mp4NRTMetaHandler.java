@@ -21,57 +21,48 @@
 package com.drew.metadata.mp4.media;
 
 import com.drew.imaging.mp4.Mp4Handler;
-import com.drew.lang.SequentialByteArrayReader;
 import com.drew.lang.SequentialReader;
 import com.drew.lang.annotations.NotNull;
 import com.drew.metadata.Metadata;
-import com.drew.metadata.mp4.Mp4BoxTypes;
+import com.drew.metadata.mp4.Mp4ContainerTypes;
 import com.drew.metadata.mp4.Mp4Context;
+import com.drew.metadata.mp4.Mp4MediaHandler;
 import com.drew.metadata.mp4.boxes.Box;
-import com.drew.metadata.mp4.boxes.ItemListBox;
 
 import java.io.IOException;
 
-public class Mp4MetaHandler extends Mp4Handler<Mp4MetaBoxDirectory>
+public class Mp4NRTMetaHandler extends Mp4MediaHandler<Mp4NRTMetaDirectory>
 {
-    public Mp4MetaHandler(Metadata metadata, Mp4Context context)
+    public Mp4NRTMetaHandler(Metadata metadata, Mp4Context context)
     {
-        super(metadata);
+        super(metadata, context);
+    }
+
+    @NotNull
+    @Override
+    protected Mp4NRTMetaDirectory getDirectory()
+    {
+        return new Mp4NRTMetaDirectory();
     }
 
     @Override
-    protected Mp4MetaBoxDirectory getDirectory()
+    protected String getMediaInformation()
     {
-        return new Mp4MetaBoxDirectory();
+        return Mp4ContainerTypes.BOX_MEDIA_NULL;
     }
 
     @Override
-    protected boolean shouldAcceptBox(Box box)
+    protected void processSampleDescription(@NotNull SequentialReader reader, @NotNull Box box) throws IOException
     {
-        return box.type.equals(Mp4BoxTypes.BOX_ITEM_LIST);
     }
 
     @Override
-    protected boolean shouldAcceptContainer(Box box)
+    protected void processMediaInformation(@NotNull SequentialReader reader, @NotNull Box box) throws IOException
     {
-        return false;
     }
 
     @Override
-    public Mp4Handler<?> processBox(Box box, byte[] payload, Mp4Context context) throws IOException
+    protected void processTimeToSample(@NotNull SequentialReader reader, @NotNull Box box, Mp4Context context) throws IOException
     {
-        if (payload != null) {
-            SequentialReader reader = new SequentialByteArrayReader(payload);
-            if (box.type.equals(Mp4BoxTypes.BOX_ITEM_LIST)) {
-                processItemList(reader, box);
-            }
-        }
-        return this;
-    }
-
-    private void processItemList(@NotNull SequentialReader reader, @NotNull Box box) throws IOException
-    {
-        ItemListBox itemListBox = new ItemListBox(reader, box);
-        itemListBox.addMetadata(directory);
     }
 }

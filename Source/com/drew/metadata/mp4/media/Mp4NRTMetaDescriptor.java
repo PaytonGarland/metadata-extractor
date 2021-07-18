@@ -20,36 +20,13 @@
  */
 package com.drew.metadata.mp4.media;
 
-import com.drew.lang.annotations.NotNull;
+import com.drew.metadata.TagDescriptor;
 
-import java.util.HashMap;
-
-public class Mp4MetaDirectory extends Mp4MediaDirectory
+public class Mp4NRTMetaDescriptor extends TagDescriptor<Mp4NRTMetaDirectory>
 {
-    public Mp4MetaDirectory()
-    {
-        this.setDescriptor(new Mp4MetaDescriptor(this));
-    }
 
-    @NotNull
-    private static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
-
-    static
+    public Mp4NRTMetaDescriptor(Mp4NRTMetaDirectory directory)
     {
-        Mp4MediaDirectory.addMp4MediaTags(_tagNameMap);
-    }
-
-    @NotNull
-    @Override
-    public String getName()
-    {
-        return "MP4 Metadata";
-    }
-
-    @NotNull
-    @Override
-    protected HashMap<Integer, String> getTagNameMap()
-    {
-        return _tagNameMap;
+        super(directory);
     }
 }

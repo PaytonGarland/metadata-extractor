@@ -58,7 +58,6 @@ public class Mp4BoxHandler extends Mp4Handler<Mp4Directory>
             || box.type.equals(Mp4BoxTypes.BOX_HANDLER)
             || box.type.equals(Mp4BoxTypes.BOX_MEDIA_HEADER)
             || box.type.equals(Mp4BoxTypes.BOX_TRACK_HEADER)
-            || box.type.equals(Mp4BoxTypes.BOX_USER_DATA)
             || box.type.equals(Mp4BoxTypes.BOX_USER_DEFINED);
     }
 
@@ -68,7 +67,8 @@ public class Mp4BoxHandler extends Mp4Handler<Mp4Directory>
         return box.type.equals(Mp4ContainerTypes.BOX_TRACK)
             || box.type.equals(Mp4ContainerTypes.BOX_METADATA)
             || box.type.equals(Mp4ContainerTypes.BOX_MOVIE)
-            || box.type.equals(Mp4ContainerTypes.BOX_MEDIA);
+            || box.type.equals(Mp4ContainerTypes.BOX_MEDIA)
+            || box.type.equals(Mp4ContainerTypes.BOX_USER_DATA);
     }
 
     @Override
@@ -90,8 +90,6 @@ public class Mp4BoxHandler extends Mp4Handler<Mp4Directory>
             } else if (box.type.equals(Mp4BoxTypes.BOX_USER_DEFINED)) {
                 Mp4UuidBoxHandler userBoxHandler = new Mp4UuidBoxHandler(metadata);
                 userBoxHandler.processBox(box, payload, context);
-            } else if (box.type.equals(Mp4BoxTypes.BOX_USER_DATA)) {
-                processUserData(box, reader, payload.length);
             }
         } else {
             if (box.type.equals(Mp4ContainerTypes.BOX_COMPRESSED_MOVIE)) {
