@@ -51,10 +51,14 @@ public class Mp4Reader
             while (atomEnd == -1 || reader.getPosition() < atomEnd) {
 
                 Box box = new Box(reader);
+                if (box.type.equals("meta")) {
+                    // TODO: Figure out how to support containers that are also FullBox types (extra 4 bytes for version and flag)
+                    System.out.println("THIS NEEDS TO BE CHANGED.");
+                    reader.skip(4);
+                }
 
                 // Determine if fourCC is container/atom and process accordingly.
                 // Unknown atoms will be skipped
-
                 if (handler.shouldAcceptContainer(box)) {
                     processBoxes(reader, box.size + reader.getPosition() - 8, handler.processContainer(box, context), context);
                 } else if (handler.shouldAcceptBox(box)) {

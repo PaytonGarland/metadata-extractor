@@ -22,10 +22,9 @@ package com.drew.metadata.mp4.media;
 
 import com.drew.metadata.TagDescriptor;
 
-public class Mp4MetaDescriptor extends TagDescriptor<Mp4MetaDirectory>
+public class Mp4MetaBoxDescriptor extends TagDescriptor<Mp4MetaBoxDirectory>
 {
-
-    public Mp4MetaDescriptor(Mp4MetaDirectory directory)
+    public Mp4MetaBoxDescriptor(Mp4MetaBoxDirectory directory)
     {
         super(directory);
     }

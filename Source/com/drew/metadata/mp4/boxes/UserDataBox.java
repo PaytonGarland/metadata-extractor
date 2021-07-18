@@ -44,6 +44,7 @@ public class UserDataBox extends Box {
     public UserDataBox(@NotNull final SequentialReader reader, @NotNull final Box box, int length) throws IOException {
         super(box);
 
+        // TODO: This logic should be added to ItemListBox by adding a new item for "©xyz"
         while (reader.getPosition() < length) {
             long size = reader.getUInt32();
             if (size <= 4)

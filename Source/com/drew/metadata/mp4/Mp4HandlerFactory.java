@@ -31,7 +31,8 @@ public class Mp4HandlerFactory
     private static final String HANDLER_VIDEO_MEDIA             = "vide";
     private static final String HANDLER_HINT_MEDIA              = "hint";
     private static final String HANDLER_TEXT_MEDIA              = "text";
-    private static final String HANDLER_META_MEDIA              = "meta";
+    private static final String HANDLER_NRT_META_MEDIA          = "meta";
+    private static final String HANDLER_META_MEDIA              = "mdir";
 
     private Mp4Handler<?> caller;
 
@@ -51,6 +52,8 @@ public class Mp4HandlerFactory
             return new Mp4HintHandler(metadata, context);
         } else if (type.equals(HANDLER_TEXT_MEDIA)) {
             return new Mp4TextHandler(metadata, context);
+        } else if (type.equals(HANDLER_NRT_META_MEDIA)) {
+            return new Mp4NRTMetaHandler(metadata, context);
         } else if (type.equals(HANDLER_META_MEDIA)) {
             return new Mp4MetaHandler(metadata, context);
         }
